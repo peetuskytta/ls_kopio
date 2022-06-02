@@ -5,82 +5,49 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 18:29:40 by pskytta           #+#    #+#             */
-/*   Updated: 2022/05/30 18:29:40 by pskytta          ###   ########.fr       */
+/*   Created: 2022/05/31 10:07:54 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/02 13:58:48 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	ls_check(char *str)
+void	init_variables(t_data *info)
 {
-	if (str)
-	{
-		if (ft_strcmp(str, "ls") != 0)
-		{
-			ft_putstr("command not found: ");
-			ft_putendl(str);
-			exit(-1);
-		}
-	}
+	info->f_all = 0;
+	info->f_long = 0;
+	info->f_reve = 0;
+	info->f_recu = 0;
+	info->f_time = 0;
+	info->padding[0] = 0;
+	info->padding[1] = 0;
+	info->file_count = 0;
+	info->flag_count = 0;
+	info->arg_count = 0;
 }
 
-static void	args_check(int args)
+void	useful(t_data *data)
 {
-	if (args < 2)
-	{
-		ft_putendl("usage: ./ft_ls <ls> <flags> <filename>");
-		exit(-1);
-	}
-}
-
-void	primary_checks(int args, char **str)
-{
-	args_check(args);
-	ls_check(str[1]);
-}
-
-void	print_double(char **str)
-{
-	// reminder: DELETE THIS before submit
-	size_t	i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		ft_putendl(str[i]);
-		i++;
-	}
+	printf("\nflag l: %d\n", data->f_long);
+	printf("flag a: %d\n", data->f_all);
+	printf("flag r: %d\n", data->f_reve);
+	printf("flag R: %d\n", data->f_recu);
+	printf("flag t: %d\n", data->f_time);
+	printf("file count: %d\n", data->file_count);
+	printf("flag count: %d\n", data->flag_count);
+	printf("Arg count: %d\n\n", data->arg_count);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data	*arr;
+	t_data	*info;
 
-	arr = ft_memalloc(sizeof(t_data));
-	primary_checks(argc, argv);
-	handle_flags(arr, argv);
+	info = ft_memalloc(sizeof(t_data));
+	primary_checks(argv, argc, info);
+	ls_driver(info);
 
-	printf("l: %d\na: %d\nr: %d\nR: %d\nt: %d\n", arr->flags[0], arr->flags[1], arr->flags[2], arr->flags[3], arr->flags[4]);
-	printf("padding hd: %d\n", arr->padding[0]);
-	printf("padding size: %d\n", arr->padding[1]);
-	printf("files total: %d\n", arr->file_count);
-	printf("argument total: %d\n", arr->arg_count);
-	printf("flag arguments total: %d\n", arr->flag_count);
+	//useful(info);
 
-	if (argv[arr->arg_count] == NULL)
-	{
-		printf("do basic ls options\n");
-		ls_driver(arr);
-	}
-	else
-	{
-		printf("do ls from argv\n");
-		//list_driver();
-	}
-
-
-	printf("\nhenlo\n");
-	free(arr);
+	free(info);
 	return (0);
 }

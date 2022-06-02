@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/05/31 20:42:43 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:56:16 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,39 @@ typedef struct s_data
 	int			padding[2];
 	int			file_count;
 	int			flag_count;
-	int			hd_count;
+	int			link_count;
 	int			arg_count;
+	char		**list;
+	DIR			*dir;
+	struct dirent	*ent;
 }	t_data;
 
 typedef struct s_file
 {
 	char			path[8192];
-	struct dirent	*ent;
-	struct stat		info;
-	DIR				*dir;
+	char			name[255];
+	struct stat		stats;
 }	t_file;
 
-
-void	handle_flags(t_data *arr, char **str);
-void	primary_checks(int args, char **str);
-void	parse_flags(t_data *arr, char **str, int i);
-void	init_flags(t_data *arr, char *str);
+int		file_count(t_data *info);
+t_file	*read_dir_stream(t_data *info, int i);
 void	ch_error(char c);
-void	flag_save(char c, t_data *arr);
-void	print_double(char **str);
-void	ls_driver(t_data *arr);
-
-int	dot_count(const char *dir);
-int		count_entries(const char *dirname, int count);
-
-t_data	*dir_stream(const char *dirname, t_data *arr, int i);
-t_data	store_data(struct dirent *ent, t_data f);
-t_data	*dir_stream_all(const char *dirname, t_data *arr, int i);
+void	command_not_found(char *str);
+void	flag_check(t_data *info, char *str);
+void	flag_save(char c, t_data *info);
+void	init_variables(t_data *info);
+void	ls_driver(t_data *info);
+void	ls_only(t_data *info, int i);
+void	ls_recursive(t_data *info);
+void	parse_flags(char **str, t_data *info);
+void	primary_checks(char **str, int args, t_data *info);
+void	print_short(t_file *arr, t_data *info);
+void	sort_driver(t_file *arr, t_data *info);
+void	sort_list_ascending(char **list, int n);
+void	sort_struct_reverse(t_file *arr, int end);
+void	sort_struct_array_asc(t_file *arr, int n);
+void	usage_error();
+void	useful(t_data *data);
 
 
 #endif
