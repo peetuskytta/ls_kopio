@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/03 14:04:35 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/03 14:14:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	sort_struct_time(t_file *arr, int n)
 {
 	int				i;
 	int				ii;
-	t_file			temp;
+	//t_file			temp;
 
 	i = 0;
 	while (i < n - 1)
@@ -89,15 +89,22 @@ void	sort_struct_time(t_file *arr, int n)
 		while (ii < n)
 		{
 			if (arr[i].stats.st_mtimespec.tv_sec < arr[ii].stats.st_mtimespec.tv_sec)
-			{
-				temp = arr[i];
-				arr[i] = arr[ii];
-				arr[ii] = temp;
-			}
+				swap_struct(&arr[i], &arr[ii]);
+			else if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
+				swap_struct(&arr[i], &arr[ii]);
 			ii++;
 		}
 		i++;
 	}
+}
+
+void	swap_struct(t_file *first, t_file *second)
+{
+	t_file	temp;
+
+	temp = *first;
+	*first = *second;
+	*second = temp;
 }
 
 int	file_count(t_data *info)
