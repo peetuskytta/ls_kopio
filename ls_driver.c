@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:07:03 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/02 19:55:30 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/03 13:43:36 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	ls_driver(t_data *info)
 void	sort_driver(t_file *arr, t_data *info)
 {
 	sort_struct_array_asc(arr, info->file_count);
+	if (info->f_time == 1)
+		sort_struct_time(arr, info->file_count);
+	//else
 	if (info->f_reve == 1)
 		sort_struct_reverse(arr, info->file_count - 1);
 }

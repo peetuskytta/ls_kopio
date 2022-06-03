@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/02 19:56:16 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:51:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	primary_checks(char **str, int args, t_data *info);
 void	print_short(t_file *arr, t_data *info);
 void	sort_driver(t_file *arr, t_data *info);
 void	sort_list_ascending(char **list, int n);
-void	sort_struct_reverse(t_file *arr, int end);
 void	sort_struct_array_asc(t_file *arr, int n);
+void	sort_struct_reverse(t_file *arr, int end);
+void	sort_struct_time(t_file *arr, int n);
 void	usage_error();
 void	useful(t_data *data);
 

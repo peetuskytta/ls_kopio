@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:23:34 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/02 17:18:59 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/03 12:58:08 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ls_recursive(t_data *info)
 
 	arr = read_dir_stream(info, 0);
 	sort_driver(arr, info);
-	// sort time
 	print_short(arr, info);
 	free(arr);
 }

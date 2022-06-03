@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/02 19:55:16 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/03 14:04:35 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,30 @@ void	sort_struct_reverse(t_file *arr, int end)
 		arr[end] = temp;
 		start++;
 		end--;
+	}
+}
+
+void	sort_struct_time(t_file *arr, int n)
+{
+	int				i;
+	int				ii;
+	t_file			temp;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		ii = i + 1;
+		while (ii < n)
+		{
+			if (arr[i].stats.st_mtimespec.tv_sec < arr[ii].stats.st_mtimespec.tv_sec)
+			{
+				temp = arr[i];
+				arr[i] = arr[ii];
+				arr[ii] = temp;
+			}
+			ii++;
+		}
+		i++;
 	}
 }
 

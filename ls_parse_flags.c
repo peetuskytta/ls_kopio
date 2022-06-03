@@ -81,3 +81,4 @@ void	primary_checks(char **str, int args, t_data *info)
 	else
 		usage_error();
 }
+//
