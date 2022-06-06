@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/03 14:14:41 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/06 13:19:01 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	sort_struct_array_asc(t_file *arr, int n)
 {
 	int		i;
 	int		ii;
-	t_file	temp;
 
 	i = 0;
 	while (i < n - 1)
@@ -49,11 +48,7 @@ void	sort_struct_array_asc(t_file *arr, int n)
 		while (ii < n)
 		{
 			if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
-			{
-				temp = arr[i];
-				arr[i] = arr[ii];
-				arr[ii] = temp;
-			}
+				swap_struct(&arr[i], &arr[ii]);
 			ii++;
 		}
 		i++;
@@ -63,14 +58,11 @@ void	sort_struct_array_asc(t_file *arr, int n)
 void	sort_struct_reverse(t_file *arr, int end)
 {
 	int		start;
-	t_file	temp;
 
 	start = 0;
 	while (start < end)
 	{
-		temp = arr[start];
-		arr[start] = arr[end];
-		arr[end] = temp;
+		swap_struct(&arr[start], &arr[end]);
 		start++;
 		end--;
 	}
@@ -80,7 +72,6 @@ void	sort_struct_time(t_file *arr, int n)
 {
 	int				i;
 	int				ii;
-	//t_file			temp;
 
 	i = 0;
 	while (i < n - 1)
@@ -88,10 +79,13 @@ void	sort_struct_time(t_file *arr, int n)
 		ii = i + 1;
 		while (ii < n)
 		{
-			if (arr[i].stats.st_mtimespec.tv_sec < arr[ii].stats.st_mtimespec.tv_sec)
+			if (arr[i].stats.st_mtim.tv_sec < arr[ii].stats.st_mtim.tv_sec)
 				swap_struct(&arr[i], &arr[ii]);
-			else if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
-				swap_struct(&arr[i], &arr[ii]);
+			else
+			{
+				if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
+					swap_struct(&arr[i], &arr[ii]);
+			}
 			ii++;
 		}
 		i++;

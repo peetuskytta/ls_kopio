@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:06:41 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/03 13:50:35 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/06 21:20:49 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,27 @@ static void	write_and_free(t_file *arr, t_data *info, int i)
 
 void	ls_only(t_data *info, int i)
 {
-	t_file	*arr;
+	t_file			*arr;
+	DIR				*dir;
+	struct dirent	*ent;
 
+	info->file_count = file_count(info);
 	arr = ft_memalloc(sizeof(t_file));
-	info->dir = opendir(".");
-	if (info->dir == NULL)
+	dir = opendir(".");
+	if (dir == NULL)
 		strerror(errno);
-	info->list = ft_memalloc(sizeof(char *) * 65534);
-	info->ent = readdir(info->dir);
-	while (info->ent != NULL)
+	info->list = ft_memalloc(sizeof(char *) * info->file_count + 1);
+	ent = readdir(dir);
+	while (ent != NULL)
 	{
-		if (info->ent->d_name[0] != '.')
+		if (ent->d_name[0] != '.')
 		{
-			info->list[i] = ft_strdup(info->ent->d_name);
+			info->list[i] = ft_strdup(ent->d_name);
 			i++;
 		}
-		info->ent = readdir(info->dir);
+		ent = readdir(dir);
 	}
-	closedir(info->dir);
+	closedir(dir);
 	info->list[i] = NULL;
 	write_and_free(arr, info, i);
 }
-

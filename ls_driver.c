@@ -6,20 +6,20 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:07:03 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/03 13:43:36 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/06 21:31:47 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ls_driver(t_data *info)
+void	ls_driver(t_data *info, char *dirname)
 {
 	if (info->flag_count == 0)
 		ls_only(info, 0);
 	if (info->f_recu == 1)
-		ls_recursive(info);
-	//else if (info->f_reve == 1)
-	//	ls_recursive(info);
+		ls_recursive(info, dirname, 0);
+	else
+		ls_with_flags(info);
 }
 
 void	sort_driver(t_file *arr, t_data *info)
@@ -27,18 +27,17 @@ void	sort_driver(t_file *arr, t_data *info)
 	sort_struct_array_asc(arr, info->file_count);
 	if (info->f_time == 1)
 		sort_struct_time(arr, info->file_count);
-	//else
 	if (info->f_reve == 1)
 		sort_struct_reverse(arr, info->file_count - 1);
 }
 
-t_file	*read_dir_stream(t_data *info, int i)
+t_file	*read_dir_stream(t_data *info, const char *dirname, int i)
 {
 	t_file	*f;
 
 	info->file_count = file_count(info);
 	f = (t_file *)malloc(sizeof(t_file) * info->file_count + 1);
-	info->dir = opendir(".");
+	info->dir = opendir(dirname);
 	if (info->dir == NULL)
 		strerror(errno);
 	info->ent = readdir(info->dir);
