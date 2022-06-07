@@ -6,65 +6,63 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:23:34 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/06 21:30:08 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/07 16:13:07 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ls_recursive(t_data *info, const char *dirname, int i)
+void	ls_recursive(t_data *info, const char *name, int i)
 {
 	t_file	*arr;
+	char	path[1024];
+	int		f_count;
 
-	arr = read_dir_stream(info, dirname, 0);
-	sort_driver(arr, info);
-	ft_putstr(dirname);
-	ft_putendl(":");
-	print_short(arr, info);
-	ft_putendl("");
-	while (i < info->file_count)
+	f_count = file_count(info, name);
+	arr = read_dir_stream(info, name, 0, f_count);
+	sort_driver(arr, info, f_count);
+	while (i < f_count)
 	{
-		if (ft_strcmp(arr[i].name, ".") != 0 && ft_strcmp(arr[i].name, "..") != 0)
+		if (arr[i].stats.st_mode & S_IFDIR)
 		{
-			if (is_directory(arr[i].stats) == 1)
+			if (ft_strcmp(arr[i].name, ".") != 0 && \
+				ft_strcmp(arr[i].name, "..") != 0)
 			{
-				path_maker(info->path, arr[i].name);
-				ft_putendl(info->path);
-				//ft_putendl(arr[i].name);
-				ls_recursive(info, info->path, 0);
-				ft_strclr(info->path);
-				i++;
+				recurse_path_maker(path, name, arr[i].name);
+				ls_recursive(info, path, 0);
+				ft_strclr(path);
 			}
-			i++;
 		}
+		i++;
 	}
 	free(arr);
 }
 
-void	path_maker(char *start, char *name)
-{
-	if (!(ft_strchr(start, '.')))
-		ft_strcat(start, ".");
-	ft_strcat(start, "/");
-	ft_strcat(start, name);
-}
-
-int	is_directory(struct stat file)
-{
-	if (file.st_mode & S_IFDIR)
-		return (1);
-	return (0);
-}
-
-
-void	print_short(t_file *arr, t_data *info)
+void	print_short(t_file *arr, t_data *info, int f_count)
 {
 	int	i;
 
 	i = 0;
-	while (i < info->file_count)
+
+	while (i < f_count)
 	{
-		ft_putendl(arr[i].name);
+		//ft_putnbr(arr[i].len);
+		//ft_putstr(" ");
+		ft_putstr(arr[i].name);
+		if (i != f_count - 1)
+			ft_putendl("");
 		i++;
 	}
+	ft_strclr(info->empty);
+}
+
+void	ls_with_flags(t_data *info, const char *path)
+{
+	t_file	*arr;
+	int		f_count;
+
+	f_count = file_count(info, path);
+	arr = read_dir_stream(info, path, 0, f_count);
+	sort_driver(arr, info, f_count);
+	free(arr);
 }

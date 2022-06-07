@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:29:44 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/02 19:59:10 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/07 11:51:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	command_not_found(char *str)
 	exit(-1);
 }
 
-void	usage_error()
+void	usage_error(void)
 {
 	ft_putendl("usage: <./ft_ls> <ls> <flags/filenames>");
 	exit(-1);

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/06 13:19:01 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/07 11:44:14 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	sort_struct_reverse(t_file *arr, int end)
 
 void	sort_struct_time(t_file *arr, int n)
 {
-	int				i;
-	int				ii;
+	int	i;
+	int	ii;
 
 	i = 0;
 	while (i < n - 1)
@@ -79,36 +79,25 @@ void	sort_struct_time(t_file *arr, int n)
 		ii = i + 1;
 		while (ii < n)
 		{
-			if (arr[i].stats.st_mtim.tv_sec < arr[ii].stats.st_mtim.tv_sec)
+			if (arr[i].stats.st_mtimespec.tv_sec < \
+				arr[ii].stats.st_mtimespec.tv_sec)
 				swap_struct(&arr[i], &arr[ii]);
-			else
-			{
-				if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
-					swap_struct(&arr[i], &arr[ii]);
-			}
+			else if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
+				swap_struct(&arr[i], &arr[ii]);
 			ii++;
 		}
 		i++;
 	}
 }
 
-void	swap_struct(t_file *first, t_file *second)
-{
-	t_file	temp;
-
-	temp = *first;
-	*first = *second;
-	*second = temp;
-}
-
-int	file_count(t_data *info)
+int	file_count(t_data *info, const char *name)
 {
 	DIR				*d;
 	struct dirent	*entity;
 	int				count;
 
 	count = 0;
-	d = opendir(".");
+	d = opendir(name);
 	if (d == NULL)
 		return (0);
 	entity = readdir(d);

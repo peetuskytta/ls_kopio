@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:07:54 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/06 19:48:37 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/07 16:16:46 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	init_variables(t_data *info)
 	info->file_count = 0;
 	info->flag_count = 0;
 	info->arg_count = 0;
-	ft_strclr(info->path);
-	ft_strcpy(info->path, ".");
 }
 
 void	useful(t_data *data)
@@ -40,16 +38,15 @@ void	useful(t_data *data)
 	printf("Arg count: %d\n\n", data->arg_count);
 }
 
+	//useful(info);
 int	main(int argc, char **argv)
 {
 	t_data	*info;
 
 	info = ft_memalloc(sizeof(t_data));
 	primary_checks(argv, argc, info);
-	ls_driver(info, info->path);
-
-	//useful(info);
-
+	ls_driver(info);
+	ft_putendl("");
 	free(info);
 	return (0);
 }
