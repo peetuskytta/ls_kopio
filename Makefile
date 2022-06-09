@@ -1,6 +1,6 @@
 CC := gcc
 DEBUG_F := -g
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror #-fsanitize=address
 
 NAME := ft_ls
 SOURCES := ls_main.c \
@@ -11,6 +11,9 @@ SOURCES := ls_main.c \
 	ls_sort.c \
 	ls_recursive.c \
 	ls_utils.c \
+	ls_long_utils.c \
+	ls_read_dir_stream.c \
+	ls_long_prints.c \
 
 OBJ := $(SOURCES:.c=.o)
 
@@ -30,6 +33,7 @@ clean:
 fclean: clean
 	@make -s -C libft fclean
 	@rm -f $(NAME)
+	@echo "ft_ls deleted"
 
 re: fclean all
 

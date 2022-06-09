@@ -6,11 +6,23 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:23:34 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 16:13:07 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 14:51:40 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	recurse_path_maker(char *path, const char *name, char *file)
+{
+	ft_strclr(path);
+	ft_strcat(path, name);
+	ft_strcat(path, "/");
+	ft_strcat(path, file);
+	ft_putendl("");
+	ft_putendl("");
+	ft_putstr(path);
+	ft_putendl(":");
+}
 
 void	ls_recursive(t_data *info, const char *name, int i)
 {
@@ -36,24 +48,6 @@ void	ls_recursive(t_data *info, const char *name, int i)
 		i++;
 	}
 	free(arr);
-}
-
-void	print_short(t_file *arr, t_data *info, int f_count)
-{
-	int	i;
-
-	i = 0;
-
-	while (i < f_count)
-	{
-		//ft_putnbr(arr[i].len);
-		//ft_putstr(" ");
-		ft_putstr(arr[i].name);
-		if (i != f_count - 1)
-			ft_putendl("");
-		i++;
-	}
-	ft_strclr(info->empty);
 }
 
 void	ls_with_flags(t_data *info, const char *path)

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:07:54 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 16:16:46 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 17:12:39 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	init_variables(t_data *info)
 	info->f_time = 0;
 	info->padding[0] = 0;
 	info->padding[1] = 0;
+	info->padding[2] = 0;
 	info->file_count = 0;
 	info->flag_count = 0;
 	info->arg_count = 0;
+
 }
 
 void	useful(t_data *data)
@@ -46,7 +48,8 @@ int	main(int argc, char **argv)
 	info = ft_memalloc(sizeof(t_data));
 	primary_checks(argv, argc, info);
 	ls_driver(info);
-	ft_putendl("");
+	//ft_putendl("");
 	free(info);
 	return (0);
 }
+

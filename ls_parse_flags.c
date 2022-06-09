@@ -12,15 +12,6 @@
 
 #include "ft_ls.h"
 
-static void	ls_check(char *str)
-{
-	if (str)
-	{
-		if (ft_strcmp(str, "./ft_ls") != 0)
-			command_not_found(str);
-	}
-}
-
 void	flag_check(t_data *info, char *str)
 {
 	int		i;
@@ -74,7 +65,6 @@ void	parse_flags(char **str, t_data *info)
 
 void	primary_checks(char **str, int args, t_data *info)
 {
-	ls_check(str[0]);
 	init_variables(info);
 	if (args > 0)
 		parse_flags(str, info);

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:07:03 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 16:13:41 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:17:49 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,15 @@ void	sort_driver(t_file *arr, t_data *info, int f_count)
 	if (info->f_reve == 1)
 		sort_struct_reverse(arr, f_count - 1);
 	save_padding(arr, info, 0, f_count);
-	print_short(arr, info, f_count);
-	//ft_putendl("");
+	print_driver(arr, info, f_count);
 }
 
-t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
+void	print_driver(t_file *arr, t_data *info, int f_count)
 {
-	t_file	*f;
-	char	path[1024];
-
-	clear_and_rename_path(path, name);
-	f = ft_memalloc(sizeof(t_file) * f_count);
-	info->dir = opendir(name);
-	if (info->dir == NULL)
-		strerror(errno);
-	info->ent = readdir(info->dir);
-	while (info->ent)
+	if (info->f_long == 1)
 	{
-		if (info->ent->d_name[0] != '.' || \
-			(info->ent->d_name[0] == '.' && info->f_all == 1))
-		{
-			ft_strcpy(f[i].name, info->ent->d_name);
-			f[i].len = info->ent->d_namlen;
-			path_maker(path, f[i].name);
-			stat(path, &f[i].stats);
-			clear_and_rename_path(path, name);
-			i++;
-		}
-		info->ent = readdir(info->dir);
+		write_long_output(arr, info, f_count, 0);
 	}
-	closedir(info->dir);
-	return (f);
+	else
+		print_short(arr, f_count);
 }

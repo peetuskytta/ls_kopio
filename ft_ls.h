@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 15:56:43 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:53:40 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_data
 	char			**list;
 	DIR				*dir;
 	struct dirent	*ent;
-	char			empty[100];
 }	t_data;
 
 typedef struct s_file
@@ -52,29 +51,34 @@ typedef struct s_file
 int		file_count(t_data *info, const char *name);
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count);
 void	ch_error(char c);
-void	clear_and_rename_path(char *path, const char *name);
 void	command_not_found(char *str);
 void	flag_check(t_data *info, char *str);
 void	flag_save(char c, t_data *info);
 void	init_variables(t_data *info);
 void	ls_driver(t_data *info);
-void	ls_only(t_data *info, int i);
+void	ls_only(t_data *info, int f_count);
 void	ls_recursive(t_data *info, const char *name, int i);
 void	ls_with_flags(t_data *info, const char *path);
 void	parse_flags(char **str, t_data *info);
-void	path_maker(char *path, const char *name);
 void	primary_checks(char **str, int args, t_data *info);
-void	print_short(t_file *arr, t_data *info, int f_count);
+void	print_driver(t_file *arr, t_data *info, int f_count);
+void	print_file_size(struct stat *stats, int pad);
+void	print_links(struct stat *stats, int pad);
+void	print_mod_time(struct stat *stats);
+void	print_rights(struct stat *stats);
+void	print_short(t_file *arr, int f_count);
+void	print_users(struct stat *stats);
 void	recurse_path_maker(char *path, const char *name, char *file);
 void	save_padding(t_file *arr, t_data *info, int i, int f_count);
+void	set_file_type(int mode, char *str);
 void	sort_driver(t_file *arr, t_data *info, int f_count);
 void	sort_list_ascending(char **list, int n);
 void	sort_struct_array_asc(t_file *arr, int n);
 void	sort_struct_reverse(t_file *arr, int end);
 void	sort_struct_time(t_file *arr, int n);
-void	swap_struct(t_file *first, t_file *second);
+void	space_after_str(char *str);
 void	usage_error(void);
 void	useful(t_data *data);
-
+void	write_long_output(t_file *arr, t_data *info, int f_count, int i);
 
 #endif

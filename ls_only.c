@@ -6,50 +6,51 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:06:41 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 15:16:45 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 17:13:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	write_and_free(t_file *arr, t_data *info, int i)
+static void	write_ls_only(t_file *arr, int f_count)
 {
-	int	index;
+	int	i;
 
-	index = i;
-	sort_list_ascending(info->list, i);
 	i = 0;
-	while (info->list[i] != NULL)
+	sort_struct_array_asc(arr, f_count);
+	while (i < f_count)
 	{
-		ft_putendl(info->list[i]);
+		ft_putstr(arr[i].name);
+		if (i != f_count - 1)
+			ft_putendl("");
 		i++;
 	}
-	ft_free_array(index, info->list);
-	free(arr);
+	ft_putendl("");
 }
 
-void	ls_only(t_data *info, int i)
+void	ls_only(t_data *info, int f_count)
 {
-	t_file	*arr;
-	int		count;
+	t_file	*f;
+	int		i;
 
-	count = file_count(info, ".");
-	arr = ft_memalloc(sizeof(t_file));
+	i = 0;
+	f_count = file_count(info, ".");
+	f = ft_memalloc(sizeof(t_file) * f_count);
 	info->dir = opendir(".");
 	if (info->dir == NULL)
 		strerror(errno);
-	info->list = ft_memalloc(sizeof(char *) * count);
 	info->ent = readdir(info->dir);
-	while (info->ent != NULL)
+	while (info->ent)
 	{
-		if (info->ent->d_name[0] != '.')
+		if (info->ent->d_name[0] != '.' || \
+			(info->ent->d_name[0] == '.' && info->f_all == 1))
 		{
-			info->list[i] = ft_strdup(info->ent->d_name);
+			ft_strcpy(f[i].name, info->ent->d_name);
 			i++;
 		}
 		info->ent = readdir(info->dir);
 	}
 	closedir(info->dir);
-	info->list[i] = NULL;
-	write_and_free(arr, info, i);
+	write_ls_only(f, f_count);
+	free(f);
 }

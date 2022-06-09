@@ -6,11 +6,20 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/07 11:44:14 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/09 11:07:21 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void	swap_struct(t_file *first, t_file *second)
+{
+	t_file	temp;
+
+	temp = *first;
+	*first = *second;
+	*second = temp;
+}
 
 void	sort_list_ascending(char **list, int n)
 {
@@ -68,6 +77,7 @@ void	sort_struct_reverse(t_file *arr, int end)
 	}
 }
 
+/* TIME SORT IS STILL INCORRECT... IF THEY ARE EQUAL THEN */
 void	sort_struct_time(t_file *arr, int n)
 {
 	int	i;
@@ -88,26 +98,4 @@ void	sort_struct_time(t_file *arr, int n)
 		}
 		i++;
 	}
-}
-
-int	file_count(t_data *info, const char *name)
-{
-	DIR				*d;
-	struct dirent	*entity;
-	int				count;
-
-	count = 0;
-	d = opendir(name);
-	if (d == NULL)
-		return (0);
-	entity = readdir(d);
-	while (entity != NULL)
-	{
-		if (entity->d_name[0] != '.' || \
-			(entity->d_name[0] == '.' && info->f_all == 1))
-			count++;
-		entity = readdir(d);
-	}
-	closedir(d);
-	return (count);
 }
