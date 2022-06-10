@@ -6,11 +6,17 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:23:34 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 14:51:40 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/10 12:19:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*static void	sys_block_total(int blocks)
+{
+	ft_putstr("total ");
+	ft_putnbr_endl(blocks);
+}*/
 
 void	recurse_path_maker(char *path, const char *name, char *file)
 {
@@ -18,8 +24,7 @@ void	recurse_path_maker(char *path, const char *name, char *file)
 	ft_strcat(path, name);
 	ft_strcat(path, "/");
 	ft_strcat(path, file);
-	ft_putendl("");
-	ft_putendl("");
+	ft_putchar('\n');
 	ft_putstr(path);
 	ft_putendl(":");
 }

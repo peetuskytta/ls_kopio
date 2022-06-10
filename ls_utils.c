@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:52:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 17:14:09 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/10 10:18:17 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	print_short(t_file *arr, int f_count)
 	{
 		ft_putstr(arr[i].name);
 		if (i != f_count - 1)
-			ft_putendl("");
+			ft_putchar('\n');
 		i++;
 	}
-	ft_putendl("");
+	ft_putchar('\n');
 }
 
 void	space_after_str(char *str)
@@ -33,11 +33,26 @@ void	space_after_str(char *str)
 	ft_putstr(" ");
 }
 
+void	print_block_total(t_file *arr, int f_count)
+{
+	int	i;
+	int	blocks;
+
+	i = 0;
+	while (f_count > i)
+	{
+		blocks = blocks + arr[i].stats.st_blocks;
+		i++;
+	}
+	ft_putstr("total ");
+	ft_putnbr_endl(blocks);
+}
+
 /*
 **	This functions saves three padding information:
-**	1. st_nlink (length of number of links)
-**	2. st_size (length of the size)
-**	3.
+**	1. st_nlink (length of number of links).
+**	2. st_size (length of the size).
+**	3. length of the name.
 */
 void	save_padding(t_file *arr, t_data *info, int i, int f_count)
 {

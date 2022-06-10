@@ -6,12 +6,11 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 09:47:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 14:48:56 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:45:31 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 
 static void	read_stat_and_lstat(char *name, unsigned char type, t_file *data)
 {
@@ -32,6 +31,7 @@ static void	clear_and_rename_path(char *path, const char *name)
 	ft_strclr(path);
 	ft_strcat(path, name);
 }
+
 /*
 **	Opens directory stream to count how many entries there are
 **	in a given directory. Returns and integer representing the

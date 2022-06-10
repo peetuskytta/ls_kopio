@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 15:53:40 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:45:35 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	int				link_count;
 	int				arg_count;
 	char			**list;
+	char			path[1024];
 	DIR				*dir;
 	struct dirent	*ent;
 }	t_data;
@@ -61,8 +62,11 @@ void	ls_recursive(t_data *info, const char *name, int i);
 void	ls_with_flags(t_data *info, const char *path);
 void	parse_flags(char **str, t_data *info);
 void	primary_checks(char **str, int args, t_data *info);
+void	print_block_total(t_file *arr, int f_count);
+void	print_double(char **str);
 void	print_driver(t_file *arr, t_data *info, int f_count);
 void	print_file_size(struct stat *stats, int pad);
+void	print_filename(struct stat *stats, char *name);
 void	print_links(struct stat *stats, int pad);
 void	print_mod_time(struct stat *stats);
 void	print_rights(struct stat *stats);
@@ -77,6 +81,7 @@ void	sort_struct_array_asc(t_file *arr, int n);
 void	sort_struct_reverse(t_file *arr, int end);
 void	sort_struct_time(t_file *arr, int n);
 void	space_after_str(char *str);
+void	store_arguments(char **string, t_data *info, int i);
 void	usage_error(void);
 void	useful(t_data *data);
 void	write_long_output(t_file *arr, t_data *info, int f_count, int i);

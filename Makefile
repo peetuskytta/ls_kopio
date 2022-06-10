@@ -11,6 +11,7 @@ SOURCES := ls_main.c \
 	ls_sort.c \
 	ls_recursive.c \
 	ls_utils.c \
+	ls_utils_2.c \
 	ls_long_utils.c \
 	ls_read_dir_stream.c \
 	ls_long_prints.c \

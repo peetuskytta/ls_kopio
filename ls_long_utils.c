@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:12:43 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 17:03:13 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/10 14:23:27 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,28 @@ static void	check_other(int mode, char *str)
 
 void	set_file_type(int mode, char *str)
 {
-	if (mode & S_IFLNK)
+	if (S_ISLNK(mode))
 		str[0] = 'l';
-	if (mode & S_IFREG)
+	if (S_ISREG(mode))
 		str[0] = '-';
-	if (mode & S_IFDIR)
+	if (S_ISDIR(mode))
 		str[0] = 'd';
+	if (S_ISCHR(mode))
+		str[0] = 'c';
+	if (S_ISBLK(mode))
+		str[0] = 'b';
+	if (S_ISSOCK(mode))
+		str[0] = 's';
+	if (S_ISFIFO(mode))
+		str[0] = 'p';
 }
 
 void	print_rights(struct stat *stats)
 {
 	char	str[11];
 
-	ft_strncpy(str, "----------\0", 11);
+	ft_strclr(str);
+	ft_strcpy(str, "----------");
 	set_file_type(stats->st_mode, str);
 	check_user(stats->st_mode, str);
 	check_group(stats->st_mode, str);
