@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/09 11:07:21 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/13 15:04:56 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	sort_struct_reverse(t_file *arr, int end)
 	}
 }
 
-/* TIME SORT IS STILL INCORRECT... IF THEY ARE EQUAL THEN */
 void	sort_struct_time(t_file *arr, int n)
 {
 	int	i;

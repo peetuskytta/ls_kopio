@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 09:47:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/10 14:45:31 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/15 11:24:25 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 	f = ft_memalloc(sizeof(t_file) * f_count);
 	info->dir = opendir(name);
 	if (info->dir == NULL)
-		strerror(errno);
+		return (NULL);
 	info->ent = readdir(info->dir);
 	while (info->ent)
 	{

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:52:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/10 10:18:17 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/15 09:52:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	print_short(t_file *arr, int f_count)
 			ft_putchar('\n');
 		i++;
 	}
-	ft_putchar('\n');
 }
 
 void	space_after_str(char *str)
@@ -38,14 +37,18 @@ void	print_block_total(t_file *arr, int f_count)
 	int	i;
 	int	blocks;
 
+	blocks = 0;
 	i = 0;
 	while (f_count > i)
 	{
 		blocks = blocks + arr[i].stats.st_blocks;
 		i++;
 	}
-	ft_putstr("total ");
-	ft_putnbr_endl(blocks);
+	if (f_count != 0)
+	{
+		ft_putstr("total ");
+		ft_putnbr_endl(blocks);
+	}
 }
 
 /*
@@ -61,20 +64,16 @@ void	save_padding(t_file *arr, t_data *info, int i, int f_count)
 		if (i == 0)
 		{
 			info->padding[0] = arr[i].stats.st_nlink;
-			info->padding[1] = arr[i].stats.st_size;
-			info->padding[2] = arr[i++].len;
+			info->padding[1] = arr[i++].stats.st_size;
 		}
 		if (arr[i].stats.st_nlink > arr[i - 1].stats.st_nlink)
 			info->padding[0] = arr[i].stats.st_nlink;
 		if (arr[i].stats.st_size > arr[i - 1].stats.st_size)
 			info->padding[1] = arr[i].stats.st_size;
-		if (arr[i].len > info->padding[2])
-			info->padding[2] = arr[i].len;
 		i++;
 	}
 	info->padding[0] = ft_nblen(info->padding[0]) + 1;
 	info->padding[1] = ft_nblen(info->padding[1]) + 1;
-	info->padding[2] = info->padding[2] + 3;
 }
 
 int	file_count(t_data *info, const char *name)

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 09:48:02 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/10 12:19:35 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:52:15 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ void	print_links(struct stat *stats, int pad)
 	ft_putchar(' ');
 }
 
+void	space_after_nbr(int nbr)
+{
+	ft_putnbr(nbr);
+	ft_putchar(' ');
+}
+
 void	print_users(struct stat *stats)
 {
 	struct passwd	*pw;
@@ -48,9 +54,14 @@ void	print_users(struct stat *stats)
 	pw = NULL;
 	gr = NULL;
 	pw = getpwuid(stats->st_uid);
-	space_after_str(pw->pw_name);
+	if (pw == NULL)
+		space_after_nbr(stats->st_uid);
+	else
+		space_after_str(pw->pw_name);
 	gr = getgrgid(stats->st_gid);
-	if (gr != NULL)
+	if (gr == NULL)
+		space_after_nbr(stats->st_gid);
+	else
 		space_after_str(gr->gr_name);
 }
 
@@ -81,5 +92,4 @@ void	write_long_output(t_file *arr, t_data *info, int f_count, int i)
 			ft_putchar('\n');
 		i++;
 	}
-	ft_putchar('\n');
 }

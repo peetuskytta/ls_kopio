@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:12:43 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/10 14:23:27 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/15 11:59:48 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static void	check_user(int mode, char *str)
 		str[1] = 'r';
 	if (mode & S_IWUSR)
 		str[2] = 'w';
-	if (mode & S_IXUSR)
+	if ((mode & S_IXUSR) && (mode & S_ISUID))
+		str[3] = 's';
+	else if (!(mode & S_IXUSR) && (mode & S_ISUID))
+		str[3] = 'S';
+	else if (mode & S_IXUSR)
 		str[3] = 'x';
 }
 
@@ -28,7 +32,11 @@ static void	check_group(int mode, char *str)
 		str[4] = 'r';
 	if (mode & S_IWGRP)
 		str[5] = 'w';
-	if (mode & S_IXGRP)
+	if ((mode & S_IXGRP) && (mode & S_ISGID))
+		str[6] = 's';
+	else if (!(mode & S_IXGRP) && (mode & S_ISGID))
+		str[6] = 'S';
+	else if (mode & S_IXGRP)
 		str[6] = 'x';
 }
 
@@ -44,19 +52,17 @@ static void	check_other(int mode, char *str)
 
 void	set_file_type(int mode, char *str)
 {
-	if (S_ISLNK(mode))
-		str[0] = 'l';
-	if (S_ISREG(mode))
-		str[0] = '-';
-	if (S_ISDIR(mode))
-		str[0] = 'd';
 	if (S_ISCHR(mode))
 		str[0] = 'c';
-	if (S_ISBLK(mode))
+	else if (S_ISLNK(mode))
+		str[0] = 'l';
+	else if (S_ISDIR(mode))
+		str[0] = 'd';
+	else if (S_ISBLK(mode))
 		str[0] = 'b';
-	if (S_ISSOCK(mode))
+	else if (S_ISSOCK(mode))
 		str[0] = 's';
-	if (S_ISFIFO(mode))
+	else if (S_ISFIFO(mode))
 		str[0] = 'p';
 }
 

@@ -67,12 +67,15 @@ void	parse_flags(char **str, t_data *info)
 void	primary_checks(char **str, int args, t_data *info)
 {
 	init_variables(info);
+	info->nb_of_args = args;
 	info->arg_count = args - 1;
-	if (args > 0)
+	if (args > 1)
 	{
-		parse_flags(str, info);
-		store_arguments(&str[info->arg_count], info, 0);
+		if (str[1][0] == '-' && str[1][1] != '\0')
+			parse_flags(str, info);
+		else
+			return ;
 	}
-	else
+	if (args == 0)
 		usage_error();
 }
