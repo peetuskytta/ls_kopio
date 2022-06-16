@@ -68,10 +68,8 @@ void	print_users(struct stat *stats)
 void	print_mod_time(struct stat *stats)
 {
 	char	*str;
-	int		i;
 
-	i = 0;
-	str = ctime(&stats->st_mtimespec.tv_sec);
+	str = ctime(&stats->st_mtime);
 	str = ft_strsub(str, 4, 12);
 	space_after_str(str);
 	free(str);

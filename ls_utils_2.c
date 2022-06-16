@@ -26,7 +26,7 @@ static void	save_args_stat(char **string, t_file *arr, int i)
 	}
 }
 
-static void	loop_args_files(t_file *arr, t_data *info, int i)
+/*static void	loop_args_files(t_file *arr, t_data *info, int i)
 {
 	while (i < info->arg_count)
 	{
@@ -46,9 +46,9 @@ static void	loop_args_files(t_file *arr, t_data *info, int i)
 	}
 	if (info->arg_count == 0)
 		write(1, "\n", 1);
-}
+}*/
 
-void	loop_directories(t_file *arr, t_data *info, int i)
+/*void	loop_directories(t_file *arr, t_data *info, int i)
 {
 	int	count;
 
@@ -82,7 +82,7 @@ void	loop_directories(t_file *arr, t_data *info, int i)
 		i++;
 //		ft_putendl("-------------LOOP_DIR");
 	}
-}
+}*/
 
 void	ls_driver(t_data *info, char *name)
 {
@@ -115,14 +115,50 @@ void	store_and_process_arguments(char **string, t_data *info)
 {
 	t_file	*arr;
 	//char	path[1024];
+	int	i;
 
+	i = 0;
 	//ft_strclr(path);
 	info->arguments_on = 1;
 	arr = ft_memalloc(sizeof(t_file) * info->arg_count);
 	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
-	loop_args_files(arr, info, 0);
-	loop_directories(arr, info, 0);
+	while (info->arg_count > i)
+	{
+		if (!(S_ISDIR(arr[i].stats.st_mode)))
+		{
+			if (info->f_long == 1 && arr[i].name[0] != '\0' && (!(S_ISLNK(arr[i].stats.st_mode))))
+			{
+				write_args_long(arr[i], info);
+			}
+			else if (arr[i].name[0] != '\0')
+			{
+				if (info->f_long == 1 && S_ISLNK(arr[i].stats.st_mode))
+					write_args_long(arr[i], info);
+				else if (info->f_long != 1 && !(S_ISLNK(arr[i].stats.st_mode)))
+					ft_putendl(arr[i].name);
+			}
+		}
+		i++;
+	}
+	i = 0;
+	while (info->arg_count > i)
+	{
+		if (S_ISDIR(arr[i].stats.st_mode) || (S_ISLNK(arr[i].stats.st_mode) && info->f_long != 1))
+		{
+			if (info->arg_count > 1 && i != 0)
+			{
+				ft_putendl("");
+			}
+			ft_putstr(arr[i].name);
+			ft_putendl(":");
+			info->arguments_on = 0;
+			ls_driver(info, arr[i].name);
+		}
+		i++;
+	}
+	//loop_args_files(arr, info, 0);
+	//loop_directories(arr, info, 0);
 	//ft_putendl("\n-------------STORE_&_PROCESS");
 	free(arr);
 }

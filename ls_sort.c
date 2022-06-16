@@ -88,8 +88,8 @@ void	sort_struct_time(t_file *arr, int n)
 		ii = i + 1;
 		while (ii < n)
 		{
-			if (arr[i].stats.st_mtimespec.tv_sec < \
-				arr[ii].stats.st_mtimespec.tv_sec)
+			if (arr[i].stats.st_mtime < \
+				arr[ii].stats.st_mtime)
 				swap_struct(&arr[i], &arr[ii]);
 			else if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
 				swap_struct(&arr[i], &arr[ii]);
