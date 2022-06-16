@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 13:56:25 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/14 12:41:20 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/16 17:05:19 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	write_args_long(t_file arr, t_data *info)
 {
+	if (info->arg_count < 2)
+		print_dirname(arr.name);
 	print_rights(&arr.stats);
 	print_links(&arr.stats, info->padding[0]);
 	print_users(&arr.stats);
@@ -33,22 +35,18 @@ void	file_no_exist(char *str)
 
 void	no_directory_access(char *name)
 {
-	ft_putchar('\n');
-	ft_putchar('\n');
-	ft_putstr(name);
-	ft_putchar(':');
-	ft_putchar('\n');
 	ft_putstr("ls: ");
 	ft_putstr(name);
-	ft_putstr(": Permissions denied\n");
+	ft_putstr(": Permission denied");
+	write(1, "\n", 1);
 }
 
 void	print_dirname(char *dirname)
 {
-	ft_putchar('\n');
+	//write(1, "\n", 1);
 	ft_putstr(dirname);
 	ft_putstr(":");
-	ft_putchar('\n');
+//	write(1, "\n", 1);
 }
 
 void	print_filename(struct stat *stats, char *name)
@@ -66,4 +64,5 @@ void	print_filename(struct stat *stats, char *name)
 	}
 	else
 		ft_putstr(name);
+	//write(1, "\n", 1);
 }

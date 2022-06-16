@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 10:07:54 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/15 16:40:12 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/16 14:21:53 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int	main(int argc, char **argv)
 
 	info = ft_memalloc(sizeof(t_data));
 	primary_checks(argv, argc, info);
-	ls_driver(info, argv, ".");
-	if (argc > 0)
-		ft_putchar('\n');
+	ls_arg_flag_driver(info, argv);
 	free(info);
 	return (0);
 }

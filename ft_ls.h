@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/15 17:08:28 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/16 14:26:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ void	flag_check(t_data *info, char *str);
 void	flag_save(char c, t_data *info);
 void	init_variables(t_data *info);
 void	loop_directories(t_file *arr, t_data *info, int i);
-void	ls_driver(t_data *info, char **str, char *name);
-void	ls_only(t_data *info, int f_count);
+void	ls_arg_flag_driver(t_data *info, char **str);
+void	ls_driver(t_data *info, char *name);
 void	ls_recursive(t_data *info, const char *name, int i);
 void	ls_with_flags(t_data *info, const char *path);
 void	no_directory_access(char *name);
 void	no_flags(t_data *info, const char *path);
 void	parse_flags(char **str, t_data *info);
-void	perm_error(const char *name);
 void	primary_checks(char **str, int args, t_data *info);
 void	print_block_total(t_file *arr, int f_count);
 void	print_dirname(char *dirname);
