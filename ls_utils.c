@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:41:59 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 22:25:31 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_short(t_file *arr, int f_count)
 	{
 		ft_putstr(arr[i].name);
 		if (i != f_count - 1)
-			ft_putchar('\n');
+			write(1, "\n", 1);
 		i++;
 	}
 }

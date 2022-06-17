@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:20:30 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 19:44:49 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 21:30:33 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	init_variables(t_data *info)
 	info->arguments_on = 0;
 	info->dir = NULL;
 	info->ent = NULL;
-	ft_strclr(info->path);
 }
 
 static void	flag_save(char c, t_data *info)

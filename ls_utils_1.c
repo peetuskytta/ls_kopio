@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:44 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 20:17:26 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 21:50:33 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_filename(struct stat *stats, char *name)
 	char	linkname[255];
 
 	ft_memset(linkname, '\0', ft_strlen(linkname));
-	//ft_strcat(linkname, name);
 	if (S_ISLNK(stats->st_mode))
 	{
 		space_after_str(name);

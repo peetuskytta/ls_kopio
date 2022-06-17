@@ -1,6 +1,6 @@
 CC := gcc
-DEBUG_F := -g
-FLAGS := -Wall -Wextra -Werror #-fsanitize=address
+DEBUG_F := -g #-fsanitize=address
+FLAGS := -Wall -Wextra -Werror -fsanitize=address
 
 NAME := ft_ls
 SOURCES := ls_main.c \
@@ -12,7 +12,7 @@ SOURCES := ls_main.c \
 	ls_recursive.c \
 	ls_utils.c \
 	ls_utils_1.c \
-	ls_utils_2.c \
+	ls_arg_utils.c \
 	ls_long_utils.c \
 	ls_read_dir_stream.c \
 	ls_long_prints.c \
