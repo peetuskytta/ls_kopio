@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 09:47:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 15:28:29 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 15:37:29 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	clear_and_rename_path(char *path, const char *name)
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 {
 	t_file	*f;
-	char	path[1024];
+	char	path[4096];
 
 	clear_and_rename_path(path, name);
 	f = ft_memalloc(sizeof(t_file) * f_count);
@@ -54,7 +54,6 @@ t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 			(info->ent->d_name[0] == '.' && info->f_all == 1))
 		{
 			ft_strcpy(f[i].name, info->ent->d_name);
-			//f[i].len = info->ent->d_namlen;
 			path_maker(path, f[i].name);
 			read_stat_and_lstat(path, info->ent->d_type, &f[i]);
 			clear_and_rename_path(path, name);

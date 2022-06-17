@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 12:12:43 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/15 11:59:48 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:01:48 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 16:37:25 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,36 @@ static void	check_other(int mode, char *str)
 		str[9] = 'x';
 }
 
-void	set_file_type(int mode, char *str)
+void	set_file_type(char *str, struct stat stats, t_file *arr)
 {
-	if (S_ISCHR(mode))
-		str[0] = 'c';
-	else if (S_ISLNK(mode))
-		str[0] = 'l';
-	else if (S_ISDIR(mode))
+	arr->is_device = 0;
+	if (S_ISDIR(stats.st_mode))
 		str[0] = 'd';
-	else if (S_ISBLK(mode))
+	else if (S_ISLNK(stats.st_mode))
+		str[0] = 'l';
+	else if (S_ISBLK(stats.st_mode))
+	{
+		arr->is_device = 1;
 		str[0] = 'b';
-	else if (S_ISSOCK(mode))
+	}
+	else if (S_ISCHR(stats.st_mode))
+	{
+		arr->is_device = 1;
+		str[0] = 'c';
+	}
+	else if (S_ISSOCK(stats.st_mode))
 		str[0] = 's';
-	else if (S_ISFIFO(mode))
+	else if (S_ISFIFO(stats.st_mode))
 		str[0] = 'p';
 }
 
-void	print_rights(struct stat *stats)
+void	print_rights(struct stat *stats, t_file *arr)
 {
 	char	str[11];
 
 	ft_strclr(str);
 	ft_strcpy(str, "----------");
-	set_file_type(stats->st_mode, str);
+	set_file_type(str, *stats, arr);
 	check_user(stats->st_mode, str);
 	check_group(stats->st_mode, str);
 	check_other(stats->st_mode, str);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 11:45:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 14:26:44 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:18:55 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 16:37:37 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # include <pwd.h>
 # include <time.h>
 
+# define PATH_MAX 4096
+# define MAX_NAME_LEN 255
+# define TRUE 1
+# define FALSE 0
+
 typedef struct s_data
 {
 	int				f_all;
@@ -39,20 +44,22 @@ typedef struct s_data
 	int				arg_count;
 	int				arguments_on;
 	char			**list;
-	char			path[9000];
+	char			path[PATH_MAX];
 	DIR				*dir;
 	struct dirent	*ent;
 }	t_data;
 
 typedef struct s_file
 {
-	char			name[255];
+	char			name[MAX_NAME_LEN];
+	int				is_device;
 	int				len;
 	struct stat		stats;
 }	t_file;
 
 int		file_count(t_data *info, const char *name);
 int		permission_check(struct stat *stats);
+int		return_major_or_minor(int rdev, int option);
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count);
 void	ch_error(char c);
 void	command_not_found(char *str);
@@ -60,7 +67,8 @@ void	file_no_exist(char *str);
 void	flag_check(t_data *info, char *str);
 void	flag_save(char c, t_data *info);
 void	init_variables(t_data *info);
-void	loop_directories(t_file *arr, t_data *info, int i);
+void	loop_directories(t_data *info, t_file *arr, int i);
+void	loop_files(t_data *info, t_file *arr, int i);
 void	ls_arg_flag_driver(t_data *info, char **str);
 void	ls_driver(t_data *info, char *name);
 void	ls_recursive(t_data *info, const char *name, int i);
@@ -74,14 +82,15 @@ void	print_dirname(char *dirname);
 void	print_driver(t_file *arr, t_data *info, int f_count);
 void	print_file_size(struct stat *stats, int pad);
 void	print_filename(struct stat *stats, char *name);
+void	print_from_string(char *str, int start, int n);
 void	print_links(struct stat *stats, int pad);
+void	print_major_and_minor(struct stat *stats);
 void	print_mod_time(struct stat *stats);
-void	print_rights(struct stat *stats);
+void	print_rights(struct stat *stats, t_file *arr);
 void	print_short(t_file *arr, int f_count);
 void	print_users(struct stat *stats);
 void	recurse_path_maker(char *path, const char *name, char *file);
-void	save_padding(t_file *arr, t_data *info, int i, int f_count);
-void	set_file_type(int mode, char *str);
+void	set_file_type(char *str, struct stat stats, t_file *arr);
 void	sort_driver(t_file *arr, t_data *info, int f_count);
 void	sort_list_ascending(char **list, int n);
 void	sort_struct_array_asc(t_file *arr, int n);

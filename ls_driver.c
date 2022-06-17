@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 14:07:03 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 16:15:57 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 09:59:15 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 15:38:52 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,15 @@ void	ls_arg_flag_driver(t_data *info, char **str)
 {
 	if (info->arg_count > 0)
 	{
-		//ft_putendl("\n-------------WITH ARGUMENTS");
 		store_and_process_arguments(&str[info->flag_count + 1], info);
-		//ft_putendl("\n-------------END ARGUMENTS");
-		return ;
-
 	}
 	else if (info->arg_count == 0)
 	{
-		//ft_putendl("\n-------------DRIVER");
 		ls_driver(info, ".");
 	}
 	else
 	{
 		no_flags(info, ".");
-		//ft_putendl("\n-------------NO_FLAGS");
 	}
 }
 
@@ -44,7 +38,6 @@ void	sort_driver(t_file *arr, t_data *info, int f_count)
 	if (info->arguments_on == 0)
 		print_driver(arr, info, f_count);
 }
-//save_padding(arr, info, 0, f_count);
 
 void	print_driver(t_file *arr, t_data *info, int f_count)
 {

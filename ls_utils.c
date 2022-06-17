@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 11:52:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 17:07:54 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 16:22:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,6 @@ void	print_block_total(t_file *arr, int f_count)
 	}
 }
 
-/*
-**	This functions saves three padding information:
-**	1. st_nlink (length of number of links).
-**	2. st_size (length of the size).
-**	3. length of the name.
-*/
-void	save_padding(t_file *arr, t_data *info, int i, int f_count)
-{
-	while (f_count > i)
-	{
-		if (i == 0)
-		{
-			info->padding[0] = arr[i].stats.st_nlink;
-			info->padding[1] = arr[i++].stats.st_size;
-		}
-		if (arr[i].stats.st_nlink > arr[i - 1].stats.st_nlink)
-			info->padding[0] = arr[i].stats.st_nlink;
-		if (arr[i].stats.st_size > arr[i - 1].stats.st_size)
-			info->padding[1] = arr[i].stats.st_size;
-		i++;
-	}
-	info->padding[0] = ft_nblen(info->padding[0]) + 1;
-	info->padding[1] = ft_nblen(info->padding[1]) + 1;
-}
-
 int	file_count(t_data *info, const char *name)
 {
 	DIR				*d;
@@ -96,4 +71,12 @@ int	file_count(t_data *info, const char *name)
 	}
 	closedir(d);
 	return (count);
+}
+
+int	return_major_or_minor(int rdev, int option)
+{
+	if (option == 1)
+		return(((int32_t)(((u_int32_t)(rdev) >> 24) & 0xff)));
+	else
+		return(((int32_t)((rdev) & 0xffffff)));
 }

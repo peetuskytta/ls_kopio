@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 09:48:02 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 16:49:50 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 16:38:54 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,33 @@ void	print_users(struct stat *stats)
 
 void	print_mod_time(struct stat *stats)
 {
-	char	*str;
+	char		*str;
+	time_t		time_now;
+	int			mod_time;
 
 	str = ctime(&stats->st_mtime);
-	str = ft_strsub(str, 4, 12);
-	space_after_str(str);
-	free(str);
+	mod_time = stats->st_mtime;
+	time(&time_now);
+	print_from_string(str, 4, 6);
+	if ((time_now - mod_time > 15724800) && (time_now - mod_time > -1))
+		print_from_string(str, 19, 5);
+	else
+		print_from_string(str, 11, 5);
+}
+
+void	print_major_and_minor(struct stat *stats)
+{
+	int	major;
+	int	minor;
+
+	//major = 0;
+	//minor = 0;
+	major = return_major_or_minor(stats->st_rdev, 1);
+	minor = return_major_or_minor(stats->st_rdev, 0);
+	ft_putnbr(major);
+	write(1, ", ", 2);
+	ft_putnbr(minor);
+	write(1, " ", 1);
 }
 
 void	write_long_output(t_file *arr, t_data *info, int f_count, int i)
@@ -80,10 +101,15 @@ void	write_long_output(t_file *arr, t_data *info, int f_count, int i)
 	print_block_total(arr, f_count);
 	while (f_count > i)
 	{
-		print_rights(&arr[i].stats);
+		print_rights(&arr[i].stats, &arr[i]);
 		print_links(&arr[i].stats, info->padding[0]);
 		print_users(&arr[i].stats);
-		print_file_size(&arr[i].stats, info->padding[1]);
+		if (arr[i].is_device == 1)
+		{
+			print_major_and_minor(&arr[i].stats);
+		}
+		else
+			print_file_size(&arr[i].stats, info->padding[1]);
 		print_mod_time(&arr[i].stats);
 		print_filename(&arr[i].stats, arr[i].name);
 		if (i != f_count - 1)

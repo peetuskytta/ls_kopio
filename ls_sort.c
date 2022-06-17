@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 14:08:32 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/13 15:04:56 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:04:29 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 13:36:01 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void	sort_struct_time(t_file *arr, int n)
 		ii = i + 1;
 		while (ii < n)
 		{
-			if (arr[i].stats.st_mtime < \
-				arr[ii].stats.st_mtime)
+			if (arr[i].stats.st_mtime < arr[ii].stats.st_mtime)
 				swap_struct(&arr[i], &arr[ii]);
 			else if (ft_strcmp(arr[i].name, arr[ii].name) > 0)
 				swap_struct(&arr[i], &arr[ii]);

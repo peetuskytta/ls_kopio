@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 14:23:34 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/16 17:32:54 by pskytta          ###   ########.fr       */
+/*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
+/*   Updated: 2022/06/17 15:31:01 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	recurse_path_maker(char *path, const char *name, char *file)
 void	ls_recursive(t_data *info, const char *name, int i)
 {
 	t_file	*arr;
-	char	path[1024];
+	char	path[PATH_MAX];
 	int		f_count;
 
 	f_count = file_count(info, name);
@@ -37,20 +37,18 @@ void	ls_recursive(t_data *info, const char *name, int i)
 		sort_driver(arr, info, f_count);
 	while (i < f_count)
 	{
-		if (arr[i].stats.st_mode & S_IFDIR)
+		if (S_ISDIR(arr[i].stats.st_mode))
 		{
-			if (ft_strcmp(arr[i].name, ".") != 0 && ft_strcmp(arr[i].name, "..") != 0)
+			if (ft_strcmp(arr[i].name, ".") != 0 && \
+				ft_strcmp(arr[i].name, "..") != 0)
 			{
 				recurse_path_maker(path, name, arr[i].name);
 				ls_recursive(info, path, 0);
-				//write(1, "\n", 1);
 				ft_strclr(path);
 			}
 		}
 		i++;
 	}
-	//if (info->arg_count == 0)
-	//	ft_putchar('\n');
 	free(arr);
 }
 
@@ -64,7 +62,5 @@ void	ls_with_flags(t_data *info, const char *path)
 	if (arr == NULL)
 		no_directory_access((char *)path);
 	sort_driver(arr, info, f_count);
-//	if (info->arg_count == 0)
-//		ft_putchar('\n');
 	free(arr);
 }
