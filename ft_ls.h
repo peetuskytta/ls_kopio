@@ -16,7 +16,6 @@
 # include "libft/libft.h"
 # include <unistd.h>
 # include <dirent.h>
-//# include <stdio.h>
 # include <errno.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -52,6 +51,7 @@ typedef struct s_file
 {
 	char			name[MAX_NAME_LEN];
 	int				is_device;
+	int				file_ok;
 	int				len;
 	struct stat		stats;
 }	t_file;

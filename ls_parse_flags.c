@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:20:30 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:42:15 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 19:13:53 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	init_variables(t_data *info)
 	info->dir = NULL;
 	info->ent = NULL;
 }
-//	info->list = NULL;
-//	ft_strclr(info->path);
 
 static void	flag_save(char c, t_data *info)
 {
@@ -96,5 +94,5 @@ void	primary_checks(char **str, int args, t_data *info)
 			return ;
 	}
 	if (args == 0)
-		usage_error();
+		ft_putendl("usage: ./ft_ls [-larRt] [file ...]");
 }

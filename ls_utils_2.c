@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:38:16 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 19:22:46 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@ static void	save_args_stat(char **string, t_file *arr, int i)
 	while (string[i] != NULL)
 	{
 		if (lstat(string[i], &arr[i].stats) == 0)
+		{
 			ft_strcpy(arr[i].name, string[i]);
+			arr[i].file_ok = TRUE;
+		}
 		else if (stat(string[i], &arr[i].stats) == 0)
+		{
 			ft_strcpy(arr[i].name, string[i]);
+			arr[i].file_ok = TRUE;
+		}
 		else
+		{
 			file_no_exist(string[i]);
+			arr[i].file_ok = FALSE;
+		}
 		i++;
 	}
 }
@@ -30,7 +39,7 @@ static void	loop_files(t_data *info, t_file *arr, int i)
 {
 	while (info->arg_count > i)
 	{
-		if (!(S_ISDIR(arr[i].stats.st_mode)))
+		if (!(S_ISDIR(arr[i].stats.st_mode)) && arr[i].file_ok == TRUE)
 		{
 			if (info->f_long == 1 && arr[i].name[0] != '\0' \
 				&& (!(S_ISLNK(arr[i].stats.st_mode))))
@@ -78,15 +87,12 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 void	store_and_process_arguments(char **string, t_data *info)
 {
 	t_file	*arr;
-	int		i;
 
-	i = 0;
 	info->arguments_on = 1;
 	arr = (t_file *)malloc(sizeof(t_file) * info->arg_count);
 	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
 	loop_files(info, arr, 0);
-	i = 0;
 	loop_directories(info, arr, 0);
 	free(arr);
 }
