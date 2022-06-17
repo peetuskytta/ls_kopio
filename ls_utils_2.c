@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 19:22:46 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 19:36:39 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 			if (info->arg_count > 1 && i != 0 && i != info->arg_count - 1)
 				write(1, "\n", 1);
 		}
-		if (info->flag_count == 0)
+		if (info->flag_count == 0 && arr[i].file_ok == TRUE)
 			write(1, "\n", 1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:44 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:40:58 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 20:17:26 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	write_args_long(t_file arr)
 	print_links(&arr.stats);
 	print_users(&arr.stats);
 	if (arr.is_device == 1)
-	{
 		print_major_and_minor(&arr.stats);
-	}
 	else
 		print_file_size(&arr.stats);
 	print_mod_time(&arr.stats);
@@ -38,8 +36,8 @@ void	print_filename(struct stat *stats, char *name)
 {
 	char	linkname[255];
 
-	ft_memset(linkname, '\0', sizeof(linkname));
-	ft_strcat(linkname, name);
+	ft_memset(linkname, '\0', ft_strlen(linkname));
+	//ft_strcat(linkname, name);
 	if (S_ISLNK(stats->st_mode))
 	{
 		space_after_str(name);

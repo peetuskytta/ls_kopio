@@ -41,8 +41,7 @@ typedef struct s_data
 	int				link_count;
 	int				arg_count;
 	int				arguments_on;
-	char			**list;
-	//char			path[PATH_MAX];
+	char			path[PATH_MAX];
 	DIR				*dir;
 	struct dirent	*ent;
 }	t_data;

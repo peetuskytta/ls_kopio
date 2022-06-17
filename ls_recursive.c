@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:25:23 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 19:52:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	recurse_path_maker(char *path, const char *name, char *file)
 {
 	ft_strclr(path);
 	ft_strcat(path, name);
-	if (name[0] == '/' && ft_strlen(name) != 1)
+	if (ft_strcmp(name, "/") != 0)
 		ft_strcat(path, "/");
 	ft_strcat(path, file);
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:43:52 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 19:40:14 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ void	write_long_output(t_file *arr, int f_count, int i)
 		print_links(&arr[i].stats);
 		print_users(&arr[i].stats);
 		if (arr[i].is_device == 1)
-		{
 			print_major_and_minor(&arr[i].stats);
-		}
 		else
 			print_file_size(&arr[i].stats);
 		print_mod_time(&arr[i].stats);
