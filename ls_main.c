@@ -1,60 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ls_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 10:02:23 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 18:42:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	init_variables(t_data *info)
+static void	ls_arg_flag_driver(t_data *info, char **str)
 {
-	info->f_all = 0;
-	info->f_long = 0;
-	info->f_reve = 0;
-	info->f_recu = 0;
-	info->f_time = 0;
-	info->padding[0] = 0;
-	info->padding[1] = 0;
-	info->padding[2] = 0;
-	info->padding[3] = 0;
-	info->nb_of_args = 0;
-	info->file_count = 0;
-	info->flag_count = 0;
-	info->link_count = 0;
-	info->arg_count = 0;
-	info->arguments_on = 0;
-//	info->list = NULL;
-//	info->dir = NULL;
-//	info->ent = NULL;
-	ft_strclr(info->path);
-}
-
-											//DELETE LATER
-void	useful(t_data *data)
-{
-	printf("\nflag l:	%d\n", data->f_long);
-	printf("flag a:	%d\n", data->f_all);
-	printf("flag r:	%d\n", data->f_reve);
-	printf("flag R:	%d\n", data->f_recu);
-	printf("flag t:	%d\n", data->f_time);
-	printf("file count:	%d\n", data->file_count);
-	printf("flag count:	%d\n", data->flag_count);
-	printf("Arg count:	%d\n", data->arg_count);
-	printf("Original argc:	%d\n", data->nb_of_args);
-	printf("Args on:	%d\n\n", data->arguments_on);
+	if (info->arg_count > 0)
+		store_and_process_arguments(&str[info->flag_count + 1], info);
+	else if (info->arg_count == 0)
+		ls_driver(info, ".");
+	else
+		no_flags(info, ".");
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	*info;
 
-	info = ft_memalloc(sizeof(t_data));
+	info = (t_data *)malloc(sizeof(t_data));
 	primary_checks(argv, argc, info);
 	ls_arg_flag_driver(info, argv);
 	free(info);

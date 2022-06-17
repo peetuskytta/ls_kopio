@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 15:37:29 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 18:26:02 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static void	clear_and_rename_path(char *path, const char *name)
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 {
 	t_file	*f;
-	char	path[4096];
+	char	path[PATH_MAX];
 
 	clear_and_rename_path(path, name);
-	f = ft_memalloc(sizeof(t_file) * f_count);
 	info->dir = opendir(name);
 	if (info->dir == NULL)
 		return (NULL);
+	f = (t_file *)malloc(sizeof(t_file) * f_count);
 	info->ent = readdir(info->dir);
 	while (info->ent)
 	{

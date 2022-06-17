@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 15:38:26 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 18:38:16 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,47 +26,7 @@ static void	save_args_stat(char **string, t_file *arr, int i)
 	}
 }
 
-void	ls_driver(t_data *info, char *name)
-{
-	if (info->f_recu == 1)
-	{
-		ls_recursive(info, name, 0);
-	}
-	else if (info->flag_count > 0)
-	{
-		ls_with_flags(info, name);
-	}
-	else if (info->flag_count == 0)
-	{
-		no_flags(info, name);
-	}
-}
-
-int	permission_check(struct stat *stats)
-{
-	if (S_IXUSR & stats->st_mode)
-		return (1);
-	else
-		return (0);
-}
-
-void	store_and_process_arguments(char **string, t_data *info)
-{
-	t_file	*arr;
-	int		i;
-
-	i = 0;
-	info->arguments_on = 1;
-	arr = ft_memalloc(sizeof(t_file) * info->arg_count);
-	save_args_stat(string, arr, 0);
-	sort_driver(arr, info, info->arg_count);
-	loop_files(info, arr, 0);
-	i = 0;
-	loop_directories(info, arr, 0);
-	free(arr);
-}
-
-void	loop_files(t_data *info, t_file *arr, int i)
+static void	loop_files(t_data *info, t_file *arr, int i)
 {
 	while (info->arg_count > i)
 	{
@@ -75,13 +35,13 @@ void	loop_files(t_data *info, t_file *arr, int i)
 			if (info->f_long == 1 && arr[i].name[0] != '\0' \
 				&& (!(S_ISLNK(arr[i].stats.st_mode))))
 			{
-				write_args_long(arr[i], info);
+				write_args_long(arr[i]);
 			}
 			else if (arr[i].name[0] != '\0')
 			{
 				if (info->f_long == 1 && S_ISLNK(arr[i].stats.st_mode) && \
 					info->arg_count != 0)
-					write_args_long(arr[i], info);
+					write_args_long(arr[i]);
 				else if (info->f_long != 1 && !(S_ISLNK(arr[i].stats.st_mode)))
 					ft_putendl(arr[i].name);
 			}
@@ -90,7 +50,7 @@ void	loop_files(t_data *info, t_file *arr, int i)
 	}
 }
 
-void	loop_directories(t_data *info, t_file *arr, int i)
+static void	loop_directories(t_data *info, t_file *arr, int i)
 {
 	while (info->arg_count > i)
 	{
@@ -113,4 +73,20 @@ void	loop_directories(t_data *info, t_file *arr, int i)
 			write(1, "\n", 1);
 		i++;
 	}
+}
+
+void	store_and_process_arguments(char **string, t_data *info)
+{
+	t_file	*arr;
+	int		i;
+
+	i = 0;
+	info->arguments_on = 1;
+	arr = (t_file *)malloc(sizeof(t_file) * info->arg_count);
+	save_args_stat(string, arr, 0);
+	sort_driver(arr, info, info->arg_count);
+	loop_files(info, arr, 0);
+	i = 0;
+	loop_directories(info, arr, 0);
+	free(arr);
 }

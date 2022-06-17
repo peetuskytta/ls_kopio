@@ -6,7 +6,7 @@ NAME := ft_ls
 SOURCES := ls_main.c \
 	ls_parse_flags.c \
 	ls_error_msg.c \
-	ls_driver.c \
+	ls_drivers.c \
 	ls_only.c \
 	ls_sort.c \
 	ls_recursive.c \

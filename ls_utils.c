@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 16:22:44 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 18:41:59 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	file_count(t_data *info, const char *name)
 int	return_major_or_minor(int rdev, int option)
 {
 	if (option == 1)
-		return(((int32_t)(((u_int32_t)(rdev) >> 24) & 0xff)));
+		return (((int32_t)(((u_int32_t)(rdev) >> 24) & 0xff)));
 	else
-		return(((int32_t)((rdev) & 0xffffff)));
+		return (((int32_t)((rdev) & 0xffffff)));
 }

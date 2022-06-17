@@ -6,44 +6,26 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:44 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 16:37:54 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/17 18:40:58 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	write_args_long(t_file arr, t_data *info)
+void	write_args_long(t_file arr)
 {
-//	if (info->arg_count < 2)
-	//	print_dirname(arr.name);
 	print_rights(&arr.stats, &arr);
-	print_links(&arr.stats, info->padding[0]);
+	print_links(&arr.stats);
 	print_users(&arr.stats);
 	if (arr.is_device == 1)
 	{
 		print_major_and_minor(&arr.stats);
 	}
 	else
-		print_file_size(&arr.stats, info->padding[1]);
+		print_file_size(&arr.stats);
 	print_mod_time(&arr.stats);
 	print_filename(&arr.stats, arr.name);
 	ft_putchar('\n');
-}
-
-void	file_no_exist(char *str)
-{
-	ft_putstr("ls: ");
-	ft_putstr(str);
-	ft_putstr(": ");
-	ft_putendl("No such file or directory");
-}
-
-void	no_directory_access(char *name)
-{
-	ft_putstr("ls: ");
-	ft_putstr(name);
-	ft_putstr(": Permission denied");
-	write(1, "\n", 1);
 }
 
 void	print_dirname(char *dirname)
@@ -54,9 +36,9 @@ void	print_dirname(char *dirname)
 
 void	print_filename(struct stat *stats, char *name)
 {
-	char	linkname[MAX_NAME_LEN];
+	char	linkname[255];
 
-	ft_memset(linkname, '\0', ft_strlen(linkname));
+	ft_memset(linkname, '\0', sizeof(linkname));
 	ft_strcat(linkname, name);
 	if (S_ISLNK(stats->st_mode))
 	{
