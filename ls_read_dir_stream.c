@@ -6,12 +6,16 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 21:37:39 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 08:49:55 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Reads file or link data to the buf stats. This is where all the long
+**	format output information is stored.
+*/
 static void	read_stat_and_lstat(char *name, unsigned char type, t_file *data)
 {
 	if (type & DT_LNK)
@@ -20,12 +24,18 @@ static void	read_stat_and_lstat(char *name, unsigned char type, t_file *data)
 		stat(name, &data->stats);
 }
 
+/*
+**	Simple pathmaker function.
+*/
 static void	path_maker(char *path, const char *name)
 {
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
 }
 
+/*
+**	Clears and renames the path in order to print correct info.
+*/
 static void	clear_and_rename_path(char *path, const char *name)
 {
 	ft_strclr(path);

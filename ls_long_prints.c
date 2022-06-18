@@ -6,12 +6,15 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 01:17:36 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 09:30:52 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Outputs the total blocks number for a folder.
+*/
 static void	print_block_total(t_file *arr, int f_count)
 {
 	int	i;
@@ -31,6 +34,10 @@ static void	print_block_total(t_file *arr, int f_count)
 	}
 }
 
+/*
+**	Outputs filename at the end of long format and adds link path if
+**	it is a link.
+*/
 static void	print_filename(struct stat *stats, char *filename)
 {
 	char	link[255];
@@ -47,6 +54,10 @@ static void	print_filename(struct stat *stats, char *filename)
 		ft_putstr(filename);
 }
 
+/*
+**	Utility function to output the major and minor number for character and
+**	block special devices.
+*/
 static void	print_major_and_minor(struct stat *stats)
 {
 	int	major;
@@ -62,10 +73,14 @@ static void	print_major_and_minor(struct stat *stats)
 	write(1, " ", 1);
 }
 
+/*
+**	Executes the long output one by one for files given
+**	as arguments.
+*/
 void	write_args_long(t_file arr)
 {
 	print_rights(&arr.stats, &arr);
-	print_links(&arr.stats);
+	print_links_nbr(&arr.stats);
 	print_users(&arr.stats);
 	if (arr.is_device == 1)
 		print_major_and_minor(&arr.stats);
@@ -76,13 +91,16 @@ void	write_args_long(t_file arr)
 	ft_putchar('\n');
 }
 
+/*
+**	Executes the long output one by one for folders.
+*/
 void	write_long_output(t_file *arr, int f_count, int i)
 {
 	print_block_total(arr, f_count);
 	while (f_count > i)
 	{
 		print_rights(&arr[i].stats, &arr[i]);
-		print_links(&arr[i].stats);
+		print_links_nbr(&arr[i].stats);
 		print_users(&arr[i].stats);
 		if (arr[i].is_device == 1)
 			print_major_and_minor(&arr[i].stats);

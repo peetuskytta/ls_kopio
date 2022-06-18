@@ -6,13 +6,17 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 07:30:55 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 09:42:59 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	save_args_stat(char **string, t_file *arr, int i, t_data *info)
+/*
+**	Function that saves important information: stat, lstat, if file exist
+**	or not, and how many non-exist files arguments contain.
+*/
+static void	save_args_stat(char **string, t_file *arr, int i)
 {
 	while (string[i] != NULL)
 	{
@@ -30,12 +34,15 @@ static void	save_args_stat(char **string, t_file *arr, int i, t_data *info)
 		{
 			file_no_exist(string[i]);
 			arr[i].file_ok = FALSE;
-			info->no_file++;
 		}
 		i++;
 	}
 }
 
+/*
+**	Loops the argument files and acts only on non directory && existing files.
+**	Break when number of existing files have been reached.
+*/
 static void	loop_files(t_data *info, t_file *arr, int i)
 {
 	int	count;
@@ -63,6 +70,9 @@ static void	loop_files(t_data *info, t_file *arr, int i)
 	}
 }
 
+/*
+**	Loops through the arguments which are directories and acts on them.
+*/
 static void	loop_directories(t_data *info, t_file *arr, int i)
 {
 	int	count;
@@ -91,6 +101,9 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 	}
 }
 
+/*
+**	Handles one argument cases only. Flags or file directory input.
+*/
 static void	ls_one_arg_only(t_file *arr, t_data *info)
 {
 	info->arguments_on = 0;
@@ -112,13 +125,16 @@ static void	ls_one_arg_only(t_file *arr, t_data *info)
 	exit(0);
 }
 
+/*
+**	Stores and processes the arguments using the functions above.
+*/
 void	store_and_process_arguments(char **string, t_data *info)
 {
 	t_file	*arr;
 
 	info->arguments_on = 1;
 	arr = (t_file *)malloc(sizeof(t_file) * info->arg_count);
-	save_args_stat(string, arr, 0, info);
+	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
 	count_files_directories(arr, info, 0);
 	if (info->arg_count == 1)

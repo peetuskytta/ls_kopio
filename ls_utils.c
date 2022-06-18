@@ -6,12 +6,15 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 05:55:29 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 09:18:35 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Writes short output.
+*/
 void	print_short(t_file *arr, int f_count)
 {
 	int	i;
@@ -26,6 +29,10 @@ void	print_short(t_file *arr, int f_count)
 	}
 }
 
+/*
+**	Utility function to write from string[start] n amount of characters.
+**	Used in long print time output. Adds extra whitespace after the output.
+*/
 void	print_from_string(char *str, int start, int n)
 {
 	char	*temp;
@@ -40,6 +47,10 @@ void	print_from_string(char *str, int start, int n)
 	write(1, " ", 1);
 }
 
+/*
+**	Utility function to check how many arguments are files and directories.
+**	Used in counters and to define break from loops.
+*/
 void	count_files_directories(t_file *arr, t_data *info, int i)
 {
 	while (i < info->arg_count)
@@ -55,12 +66,19 @@ void	count_files_directories(t_file *arr, t_data *info, int i)
 	}
 }
 
+/*
+**	Utility function to write space after a string.
+*/
 void	space_after_str(char *str)
 {
 	ft_putstr(str);
 	ft_putstr(" ");
 }
 
+/*
+**	Counter returning the number of files in a folder which is used
+**	to allocate enough space for the array of structs.
+*/
 int	file_count(t_data *info, const char *name)
 {
 	DIR				*d;

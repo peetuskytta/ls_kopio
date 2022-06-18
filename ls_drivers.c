@@ -6,12 +6,15 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:59:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 05:57:28 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 08:38:51 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Function which handles the sorting based on the active flags.
+*/
 void	sort_driver(t_file *arr, t_data *info, int f_count)
 {
 	sort_struct_array_asc(arr, f_count);
@@ -23,6 +26,10 @@ void	sort_driver(t_file *arr, t_data *info, int f_count)
 		print_driver(arr, info, f_count);
 }
 
+/*
+**	Function which handles the initial direction of the program
+**	based on the active flags.
+*/
 void	ls_driver(t_data *info, char *name)
 {
 	if (info->f_recu == 1)
@@ -33,17 +40,22 @@ void	ls_driver(t_data *info, char *name)
 		no_flags(info, name);
 }
 
+/*
+**	Function which handles the printing in long or short output.
+*/
 void	print_driver(t_file *arr, t_data *info, int f_count)
 {
 	if (info->f_long == 1)
-	{
 		write_long_output(arr, f_count, 0);
-	}
 	else
 		print_short(arr, f_count);
 	write(1, "\n", 1);
 }
 
+/*
+**	Function that opens a directory stream. Any ls flag is
+**	accepted (check the usage)
+*/
 void	ls_with_flags(t_data *info, const char *path)
 {
 	t_file	*arr;

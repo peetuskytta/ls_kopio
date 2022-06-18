@@ -6,12 +6,15 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 05:03:50 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 08:53:31 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Pathmaker function specific for recursive flag. Also outputs the path.
+*/
 static void	recurse_path_maker(char *path, const char *name, char *file)
 {
 	ft_strclr(path);
@@ -24,6 +27,10 @@ static void	recurse_path_maker(char *path, const char *name, char *file)
 	ft_putendl(":");
 }
 
+/*
+**	Recursive function to handle new folders inside the directory
+**	stream opened.
+*/
 void	ls_recursive(t_data *info, const char *name, int i)
 {
 	t_file	*arr;

@@ -6,12 +6,15 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 04:43:41 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 08:37:56 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Writes simple ls commands with no flags or whatsoever.
+*/
 static void	write_ls_only(t_file *arr, int f_count)
 {
 	int	i;
@@ -27,6 +30,10 @@ static void	write_ls_only(t_file *arr, int f_count)
 	}
 }
 
+/*
+**	Function that takes a path and opens a directory stream.
+**	In case of NULL return it outputs permission denied message.
+*/
 void	no_flags(t_data *info, const char *path)
 {
 	t_file	*arr;
@@ -38,7 +45,6 @@ void	no_flags(t_data *info, const char *path)
 		no_directory_access((char *)path);
 	else
 	{
-		sort_struct_array_asc(arr, f_count);
 		write_ls_only(arr, f_count);
 		if (info->arg_count > 1)
 			write(1, "\n", 1);
@@ -46,12 +52,18 @@ void	no_flags(t_data *info, const char *path)
 	}
 }
 
-void	print_links(struct stat *stats)
+/*
+**	Writes the number of links that a file has. Used with -l flag.
+*/
+void	print_links_nbr(struct stat *stats)
 {
 	ft_putnbr(stats->st_nlink);
 	ft_putchar(' ');
 }
 
+/*
+**	Writes a space after an integer.
+*/
 void	space_after_nbr(int nbr)
 {
 	ft_putnbr(nbr);

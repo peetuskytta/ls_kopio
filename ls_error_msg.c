@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:06 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 19:12:29 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 09:39:36 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@ void	ch_error(char c)
 	ft_putchar(c);
 	ft_putendl("");
 	ft_putendl("usage: ./ft_ls [-larRt] [file ...]");
-	exit(1);
-}
-
-void	command_not_found(char *str)
-{
-	ft_putstr("unknown command: ");
-	ft_putendl(str);
-	ft_putendl("please use <ls>");
 	exit(1);
 }
 

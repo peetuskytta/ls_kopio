@@ -6,12 +6,16 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:20:30 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 07:27:22 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 09:36:01 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
+**	Initializes all the variables in the t_data info (struct) which are used
+**	throughout the program.
+*/
 static void	init_variables(t_data *info)
 {
 	info->f_all = 0;
@@ -25,13 +29,16 @@ static void	init_variables(t_data *info)
 	info->link_count = 0;
 	info->arg_count = 0;
 	info->arguments_on = 0;
-	info->no_file = 0;
 	info->f_d_count[0] = 0;
 	info->f_d_count[1] = 0;
 	info->dir = NULL;
 	info->ent = NULL;
 }
 
+/*
+**	Activates the information about the flag by assigning it a
+**	positive value.
+*/
 static void	flag_save(char c, t_data *info)
 {
 	if (c == 'l')
@@ -48,6 +55,11 @@ static void	flag_save(char c, t_data *info)
 		ch_error(c);
 }
 
+/*
+**	Checks the length of the argument whenever it is sent to it by the
+**	previous function. Handles -l -a -r... etc simple ones and also
+**	the long -llllrrrrrrrl -rrrrrrttttttttaaaaaaaaaallllllRR flags.
+*/
 static void	flag_check(t_data *info, char *str)
 {
 	int		i;
@@ -67,6 +79,11 @@ static void	flag_check(t_data *info, char *str)
 	}
 }
 
+/*
+**	Parser which works until first illegal flag is used or no flag is
+**	found after the ft_isalpha check. If it breaks it means that at
+**	that moment a flag was not identified.
+*/
 static void	parse_flags(char **str, t_data *info)
 {
 	int	i;
@@ -88,6 +105,9 @@ static void	parse_flags(char **str, t_data *info)
 	info->arg_count = info->arg_count - info->flag_count;
 }
 
+/*
+**	Primary checks function. Init variables and start parsing.
+*/
 void	primary_checks(char **str, int args, t_data *info)
 {
 	init_variables(info);
