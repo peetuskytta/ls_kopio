@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:18:55 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:38:37 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 07:18:20 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_data
 	int				link_count;
 	int				arg_count;
 	int				arguments_on;
-	char			path[PATH_MAX];
+	int				no_file;
+	int				f_d_count[2];
 	DIR				*dir;
 	struct dirent	*ent;
 }	t_data;
@@ -60,6 +61,7 @@ int		return_major_or_minor(int rdev, int option);
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count);
 void	ch_error(char c);
 void	command_not_found(char *str);
+void	count_files_directories(t_file *arr, t_data *info, int i);
 void	file_no_exist(char *str);
 void	ls_driver(t_data *info, char *name);
 void	ls_recursive(t_data *info, const char *name, int i);
@@ -67,14 +69,10 @@ void	ls_with_flags(t_data *info, const char *path);
 void	no_directory_access(char *name);
 void	no_flags(t_data *info, const char *path);
 void	primary_checks(char **str, int args, t_data *info);
-void	print_block_total(t_file *arr, int f_count);
-void	print_dirname(char *dirname);
 void	print_driver(t_file *arr, t_data *info, int f_count);
 void	print_file_size(struct stat *stats);
-void	print_filename(struct stat *stats, char *name);
 void	print_from_string(char *str, int start, int n);
 void	print_links(struct stat *stats);
-void	print_major_and_minor(struct stat *stats);
 void	print_mod_time(struct stat *stats);
 void	print_rights(struct stat *stats, t_file *arr);
 void	print_short(t_file *arr, int f_count);
@@ -88,7 +86,6 @@ void	sort_struct_time(t_file *arr, int n);
 void	space_after_nbr(int nbr);
 void	space_after_str(char *str);
 void	store_and_process_arguments(char **string, t_data *info);
-void	usage_error(void);
 void	write_args_long(t_file arr);
 void	write_long_output(t_file *arr, int f_count, int i);
 

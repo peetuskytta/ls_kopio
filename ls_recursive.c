@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 21:21:42 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 05:03:50 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,3 @@ void	ls_recursive(t_data *info, const char *name, int i)
 	}
 	free(arr);
 }
-
-/*
-int	permission_check(struct stat *stats)
-{
-	if (S_IXUSR & stats->st_mode)
-		return (1);
-	else
-		return (0);
-}
-*/

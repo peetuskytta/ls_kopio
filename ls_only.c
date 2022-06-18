@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:44:06 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 04:43:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	no_flags(t_data *info, const char *path)
 	{
 		sort_struct_array_asc(arr, f_count);
 		write_ls_only(arr, f_count);
-		if (info->arg_count < 2)
+		if (info->arg_count > 1)
 			write(1, "\n", 1);
 		free(arr);
 	}

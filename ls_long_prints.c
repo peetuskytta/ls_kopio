@@ -6,54 +6,48 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 21:39:35 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 01:17:36 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_file_size(struct stat *stats)
+static void	print_block_total(t_file *arr, int f_count)
 {
-	ft_putnbr(stats->st_size);
-	ft_putchar(' ');
+	int	i;
+	int	blocks;
+
+	blocks = 0;
+	i = 0;
+	while (f_count > i)
+	{
+		blocks = blocks + arr[i].stats.st_blocks;
+		i++;
+	}
+	if (f_count != 0)
+	{
+		ft_putstr("total ");
+		ft_putnbr_endl(blocks);
+	}
 }
 
-void	print_users(struct stat *stats)
+static void	print_filename(struct stat *stats, char *filename)
 {
-	struct passwd	*pw;
-	struct group	*gr;
+	char	link[255];
 
-	pw = NULL;
-	gr = NULL;
-	pw = getpwuid(stats->st_uid);
-	if (pw == NULL)
-		space_after_nbr(stats->st_uid);
+	ft_memset(link, '\0', sizeof(link));
+	if (S_ISLNK(stats->st_mode))
+	{
+		space_after_str(filename);
+		space_after_str("->");
+		if (readlink(filename, link, stats->st_size))
+			ft_putstr(link);
+	}
 	else
-		space_after_str(pw->pw_name);
-	gr = getgrgid(stats->st_gid);
-	if (gr == NULL)
-		space_after_nbr(stats->st_gid);
-	else
-		space_after_str(gr->gr_name);
+		ft_putstr(filename);
 }
 
-void	print_mod_time(struct stat *stats)
-{
-	char		*str;
-	time_t		time_now;
-	int			mod_time;
-
-	str = ctime(&stats->st_mtime);
-	mod_time = stats->st_mtime;
-	time(&time_now);
-	print_from_string(str, 4, 6);
-	if ((time_now - mod_time > 15724800) && (time_now - mod_time > -1))
-		print_from_string(str, 19, 5);
-	else
-		print_from_string(str, 11, 5);
-}
-
-void	print_major_and_minor(struct stat *stats)
+static void	print_major_and_minor(struct stat *stats)
 {
 	int	major;
 	int	minor;
@@ -66,6 +60,20 @@ void	print_major_and_minor(struct stat *stats)
 	write(1, ", ", 2);
 	ft_putnbr(minor);
 	write(1, " ", 1);
+}
+
+void	write_args_long(t_file arr)
+{
+	print_rights(&arr.stats, &arr);
+	print_links(&arr.stats);
+	print_users(&arr.stats);
+	if (arr.is_device == 1)
+		print_major_and_minor(&arr.stats);
+	else
+		print_file_size(&arr.stats);
+	print_mod_time(&arr.stats);
+	print_filename(&arr.stats, arr.name);
+	ft_putchar('\n');
 }
 
 void	write_long_output(t_file *arr, int f_count, int i)

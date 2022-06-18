@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:48 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 16:37:25 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 00:22:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ static void	check_other(int mode, char *str)
 		str[7] = 'r';
 	if (mode & S_IWOTH)
 		str[8] = 'w';
-	if (mode & S_IXOTH)
+	if ((mode & S_IXOTH) && (mode & S_ISVTX))
+		str[9] = 't';
+	else if (!(mode & S_IXOTH) && (mode & S_ISVTX))
+		str[9] = 'T';
+	else if (mode & S_IXOTH)
 		str[9] = 'x';
 }
 

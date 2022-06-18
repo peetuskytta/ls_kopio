@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 18:42:41 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 05:09:24 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ static void	ls_arg_flag_driver(t_data *info, char **str)
 {
 	if (info->arg_count > 0)
 		store_and_process_arguments(&str[info->flag_count + 1], info);
-	else if (info->arg_count == 0)
+	else if (info->arg_count == 0 && info->flag_count > 0)
 		ls_driver(info, ".");
 	else
+	{
 		no_flags(info, ".");
+		write(1, "\n", 1);
+	}
 }
 
 int	main(int argc, char **argv)

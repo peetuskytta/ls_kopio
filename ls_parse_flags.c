@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:20:30 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/17 21:30:33 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/18 07:27:22 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void	init_variables(t_data *info)
 	info->link_count = 0;
 	info->arg_count = 0;
 	info->arguments_on = 0;
+	info->no_file = 0;
+	info->f_d_count[0] = 0;
+	info->f_d_count[1] = 0;
 	info->dir = NULL;
 	info->ent = NULL;
 }
@@ -68,14 +71,18 @@ static void	parse_flags(char **str, t_data *info)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (str[i] != NULL)
 	{
 		if (str[i][0] == '-')
 		{
+			if (!(ft_isalpha(str[i][1])))
+				break ;
 			info->flag_count++;
 			flag_check(info, str[i]);
 		}
+		else
+			break ;
 		i++;
 	}
 	info->arg_count = info->arg_count - info->flag_count;
@@ -87,12 +94,7 @@ void	primary_checks(char **str, int args, t_data *info)
 	info->nb_of_args = args;
 	info->arg_count = args - 1;
 	if (args > 1)
-	{
-		if (str[1][0] == '-' && str[1][1] != '\0')
-			parse_flags(str, info);
-		else
-			return ;
-	}
+		parse_flags(str, info);
 	if (args == 0)
 		ft_putendl("usage: ./ft_ls [-larRt] [file ...]");
 }
