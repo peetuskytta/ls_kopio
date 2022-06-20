@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 12:06:17 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:11:39 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,4 @@ void	space_after_str(char *str)
 {
 	ft_putstr(str);
 	ft_putstr(" ");
-}
-
-/*
-**	Counter returning the number of files in a folder which is used
-**	to allocate enough space for the array of structs.
-*/
-int	file_count(t_data *info, const char *name)
-{
-	DIR				*d;
-	struct dirent	*entity;
-	int				count;
-
-	count = 0;
-	d = opendir(name);
-	if (d == NULL)
-		return (0);
-	entity = readdir(d);
-	while (entity != NULL)
-	{
-		if (entity->d_name[0] != '.' || \
-			(entity->d_name[0] == '.' && info->f_all == 1))
-			count++;
-		entity = readdir(d);
-	}
-	closedir(d);
-	return (count);
 }

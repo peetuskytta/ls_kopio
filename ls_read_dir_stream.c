@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 11:33:03 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:11:31 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,32 @@ static void	clear_and_rename_path(char *path, const char *name)
 {
 	ft_strclr(path);
 	ft_strcat(path, name);
+}
+
+/*
+**	Counter returning the number of files in a folder which is used
+**	to allocate enough space for the array of structs.
+*/
+int	file_count(t_data *info, const char *name)
+{
+	DIR				*d;
+	struct dirent	*entity;
+	int				count;
+
+	count = 0;
+	d = opendir(name);
+	if (d == NULL)
+		return (0);
+	entity = readdir(d);
+	while (entity != NULL)
+	{
+		if (entity->d_name[0] != '.' || \
+			(entity->d_name[0] == '.' && info->f_all == 1))
+			count++;
+		entity = readdir(d);
+	}
+	closedir(d);
+	return (count);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 12:07:55 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:19:48 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	save_args_stat(char **string, t_file *arr, int i)
 		if (lstat(string[i], &arr[i].stats) == 0)
 		{
 			ft_strcpy(arr[i].name, string[i]);
+			readlink(arr[i].name, arr[i].link_path, arr[i].stats.st_size);
 			arr[i].file_ok = TRUE;
 		}
 		else if (stat(string[i], &arr[i].stats) == 0)
@@ -78,11 +79,13 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 	int	count;
 
 	count = info->f_d_count[0];
+	ft_putnbr_endl(count);
 	while (info->arg_count > i)
 	{
-		if ((S_ISDIR(arr[i].stats.st_mode) && arr[i].file_ok == TRUE) || \
+
+		if ((S_ISDIR(arr[i].stats.st_mode) && arr[i].file_ok == TRUE) /*|| \
 			(S_ISLNK(arr[i].stats.st_mode) && info->f_long && \
-			arr[i].file_ok == TRUE))
+			arr[i].file_ok == TRUE)*/)
 		{
 			if (info->arg_count > 1)
 			{
@@ -137,7 +140,6 @@ void	store_and_process_arguments(char **string, t_data *info)
 	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
 	count_files_directories(arr, info, 0);
-
 	if (info->arg_count == 1)
 		ls_one_arg_only(arr, info);
 	loop_files(info, arr, 0);
