@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:18:55 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 14:36:12 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:01:19 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	print_mod_time(struct stat *stats);
 void	print_rights(struct stat *stats, t_file *arr);
 void	print_short(t_file *arr, int f_count);
 void	print_users(struct stat *stats);
-void	set_file_type(char *str, struct stat stats, t_file *arr);
 void	sort_driver(t_file *arr, t_data *info, int f_count);
-void	sort_list_ascending(char **list, int n);
 void	sort_struct_array_asc(t_file *arr, int n);
 void	sort_struct_reverse(t_file *arr, int end);
 void	sort_struct_time(t_file *arr, int n);

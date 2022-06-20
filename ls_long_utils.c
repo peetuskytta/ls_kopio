@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:48 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 00:22:30 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 17:46:53 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	check_other(int mode, char *str)
 		str[9] = 'x';
 }
 
-void	set_file_type(char *str, struct stat stats, t_file *arr)
+static void	set_file_type(char *str, struct stat stats, t_file *arr)
 {
 	arr->is_device = 0;
 	if (S_ISDIR(stats.st_mode))
@@ -77,6 +77,9 @@ void	set_file_type(char *str, struct stat stats, t_file *arr)
 		str[0] = 'p';
 }
 
+/*
+**	Function to print the file permissions correctly.
+*/
 void	print_rights(struct stat *stats, t_file *arr)
 {
 	char	str[11];
