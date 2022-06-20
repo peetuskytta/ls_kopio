@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:59:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 10:41:38 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 15:18:06 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,15 @@ void	ls_with_flags(t_data *info, const char *path)
 {
 	t_file	*arr;
 	int		f_count;
+	char	*strname;
 
 	f_count = file_count(info, path);
 	arr = read_dir_stream(info, path, 0, f_count);
 	if (arr == NULL)
-		no_directory_access((char *)path);
+	{
+		strname = ft_strrchr(path, '/');
+		no_directory_access(++strname);
+	}
 	if (arr != NULL)
 	{
 		sort_driver(arr, info, f_count);
