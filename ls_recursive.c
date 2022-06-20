@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 08:53:31 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 14:38:19 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	recurse_path_maker(char *path, const char *name, char *file)
 void	ls_recursive(t_data *info, const char *name, int i)
 {
 	t_file	*arr;
-	char	path[PATH_MAX];
+	char	path[MAX_PATH];
 	int		f_count;
 
 	f_count = file_count(info, name);

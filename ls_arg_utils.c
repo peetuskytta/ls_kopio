@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 13:19:48 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 14:43:56 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 	int	count;
 
 	count = info->f_d_count[0];
-	ft_putnbr_endl(count);
 	while (info->arg_count > i)
 	{
-
-		if ((S_ISDIR(arr[i].stats.st_mode) && arr[i].file_ok == TRUE) /*|| \
-			(S_ISLNK(arr[i].stats.st_mode) && info->f_long && \
-			arr[i].file_ok == TRUE)*/)
+		if ((S_ISDIR(arr[i].stats.st_mode) && arr[i].file_ok == TRUE))
 		{
 			if (info->arg_count > 1)
 			{

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 13:11:31 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 14:38:38 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	file_count(t_data *info, const char *name)
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 {
 	t_file	*f;
-	char	path[PATH_MAX];
+	char	path[MAX_PATH];
 
 	clear_and_rename_path(path, name);
 	info->dir = opendir(name);

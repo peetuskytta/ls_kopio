@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:18:55 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 11:18:29 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 14:36:12 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 # define FT_LS_H
 
 # include "libft/libft.h"
-# include <unistd.h>
 # include <dirent.h>
-# include <errno.h>
 # include <sys/stat.h>
-# include <sys/types.h>
 # include <grp.h>
 # include <pwd.h>
 # include <time.h>
 
-# define PATH_MAX 4096
-# define MAX_NAME_LEN 255
+# define MAX_PATH 4096
 # define TRUE 1
 # define FALSE 0
 
@@ -48,11 +44,10 @@ typedef struct s_data
 
 typedef struct s_file
 {
-	char			name[MAX_NAME_LEN];
-	char			link_path[PATH_MAX];
+	char			name[MAX_PATH];
+	char			link_path[MAX_PATH];
 	int				is_device;
 	int				file_ok;
-	int				len;
 	struct stat		stats;
 }	t_file;
 
