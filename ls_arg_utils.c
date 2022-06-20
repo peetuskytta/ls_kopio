@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 14:43:56 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 15:00:24 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	ls_one_arg_only(t_file *arr, t_data *info)
 	if (S_ISDIR(arr[0].stats.st_mode) && arr[0].file_ok == TRUE)
 	{
 		ls_driver(info, arr[0].name);
-		if (info->flag_count == 0)
+		if (info->flag_count == 0 && arr[0].stats.st_mode & X_OK)
 			write(1, "\n", 1);
 	}
 	else if (arr[0].file_ok == TRUE)
