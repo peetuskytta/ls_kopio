@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:59:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 08:38:51 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 10:41:38 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ls_driver(t_data *info, char *name)
 }
 
 /*
-**	Function which handles the printing in long or short output.
+**	Function which handles the printing the long or short output.
 */
 void	print_driver(t_file *arr, t_data *info, int f_count)
 {

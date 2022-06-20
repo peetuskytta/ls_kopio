@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:18:35 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 12:06:17 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ void	count_files_directories(t_file *arr, t_data *info, int i)
 	}
 }
 
-/*
-**	Utility function to write space after a string.
-*/
 void	space_after_str(char *str)
 {
 	ft_putstr(str);

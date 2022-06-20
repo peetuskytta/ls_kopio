@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:39 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 08:37:56 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 10:41:17 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,12 @@ void	no_flags(t_data *info, const char *path)
 	}
 }
 
-/*
-**	Writes the number of links that a file has. Used with -l flag.
-*/
 void	print_links_nbr(struct stat *stats)
 {
 	ft_putnbr(stats->st_nlink);
 	ft_putchar(' ');
 }
 
-/*
-**	Writes a space after an integer.
-*/
 void	space_after_nbr(int nbr)
 {
 	ft_putnbr(nbr);

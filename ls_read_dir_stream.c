@@ -6,36 +6,34 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 08:49:55 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:33:03 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 /*
-**	Reads file or link data to the buf stats. This is where all the long
-**	format output information is stored.
+**	Reads file or link data to the buf stats. Saves link path also.
+**	This is where all the long format output information is stored.
 */
-static void	read_stat_and_lstat(char *name, unsigned char type, t_file *data)
+static void	read_stat_and_lstat(char *name, unsigned char type, t_file *file)
 {
+	ft_memset(file->link_path, 0, 4096);
 	if (type & DT_LNK)
-		lstat(name, &data->stats);
+	{
+		lstat(name, &file->stats);
+		readlink(name, file->link_path, file->stats.st_size);
+	}
 	else
-		stat(name, &data->stats);
+		stat(name, &file->stats);
 }
 
-/*
-**	Simple pathmaker function.
-*/
 static void	path_maker(char *path, const char *name)
 {
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
 }
 
-/*
-**	Clears and renames the path in order to print correct info.
-*/
 static void	clear_and_rename_path(char *path, const char *name)
 {
 	ft_strclr(path);
@@ -43,9 +41,9 @@ static void	clear_and_rename_path(char *path, const char *name)
 }
 
 /*
-**	Opens directory stream to count how many entries there are
-**	in a given directory. Returns and integer representing the
-**	number of files/directories/links etc in the given directory.
+**	Opens directory stream with "const char *name", allocates space for each entry
+**	in the stream and stores the file data. Returns an array of structs each
+**	representing on entry (file, directory, link, device, etc ...).
 */
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 {
@@ -65,9 +63,8 @@ t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 		{
 			ft_strcpy(f[i].name, info->ent->d_name);
 			path_maker(path, f[i].name);
-			read_stat_and_lstat(path, info->ent->d_type, &f[i]);
+			read_stat_and_lstat(path, info->ent->d_type, &f[i++]);
 			clear_and_rename_path(path, name);
-			i++;
 		}
 		info->ent = readdir(info->dir);
 	}

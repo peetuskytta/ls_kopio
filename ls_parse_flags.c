@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:20:30 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:36:01 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 12:06:59 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	parse_flags(char **str, t_data *info)
 }
 
 /*
-**	Primary checks function. Init variables and start parsing.
+**	Initializes the variables and starts parsing.
 */
 void	primary_checks(char **str, int args, t_data *info)
 {
@@ -115,6 +115,4 @@ void	primary_checks(char **str, int args, t_data *info)
 	info->arg_count = args - 1;
 	if (args > 1)
 		parse_flags(str, info);
-	if (args == 0)
-		ft_putendl("usage: ./ft_ls [-larRt] [file ...]");
 }

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:30:52 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:48:16 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,13 @@ static void	print_block_total(t_file *arr, int f_count)
 **	Outputs filename at the end of long format and adds link path if
 **	it is a link.
 */
-static void	print_filename(struct stat *stats, char *filename)
+static void	print_filename(struct stat *stats, char *filename, char *link)
 {
-	char	link[255];
-
-	ft_memset(link, '\0', sizeof(link));
 	if (S_ISLNK(stats->st_mode))
 	{
 		space_after_str(filename);
 		space_after_str("->");
-		if (readlink(filename, link, stats->st_size))
-			ft_putstr(link);
+		ft_putstr(link);
 	}
 	else
 		ft_putstr(filename);
@@ -74,8 +70,7 @@ static void	print_major_and_minor(struct stat *stats)
 }
 
 /*
-**	Executes the long output one by one for files given
-**	as arguments.
+**	Executes the long output one by one for argument input.
 */
 void	write_args_long(t_file arr)
 {
@@ -87,12 +82,12 @@ void	write_args_long(t_file arr)
 	else
 		print_file_size(&arr.stats);
 	print_mod_time(&arr.stats);
-	print_filename(&arr.stats, arr.name);
+	print_filename(&arr.stats, arr.name, arr.link_path);
 	ft_putchar('\n');
 }
 
 /*
-**	Executes the long output one by one for folders.
+**	Executes the long output one by one for no argument inputs.
 */
 void	write_long_output(t_file *arr, int f_count, int i)
 {
@@ -107,7 +102,7 @@ void	write_long_output(t_file *arr, int f_count, int i)
 		else
 			print_file_size(&arr[i].stats);
 		print_mod_time(&arr[i].stats);
-		print_filename(&arr[i].stats, arr[i].name);
+		print_filename(&arr[i].stats, arr[i].name, arr[i].link_path);
 		if (i != f_count - 1)
 			ft_putchar('\n');
 		i++;

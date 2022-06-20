@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:42:59 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 12:07:55 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 }
 
 /*
-**	Handles one argument cases only. Flags or file directory input.
+**	Handles one argument cases only (with or without flags).
 */
 static void	ls_one_arg_only(t_file *arr, t_data *info)
 {
@@ -137,10 +137,11 @@ void	store_and_process_arguments(char **string, t_data *info)
 	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
 	count_files_directories(arr, info, 0);
+
 	if (info->arg_count == 1)
 		ls_one_arg_only(arr, info);
 	loop_files(info, arr, 0);
-	if (info->f_d_count[1] > 0)
+	if (info->f_d_count[1] > 0 && info->f_d_count[0] > 0)
 		write(1, "\n", 1);
 	loop_directories(info, arr, 0);
 	free(arr);

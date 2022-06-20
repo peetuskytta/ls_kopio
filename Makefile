@@ -20,20 +20,26 @@ SOURCES := ls_main.c \
 OBJ := $(SOURCES:.c=.o)
 
 LIBFT_M := make -s -C libft
+LIBFT := libft/libft.a
+HEADER := ft_ls.h
 
 all: $(NAME)
 
-$(NAME):
-	@$(LIBFT_M)
-	@echo "Creating $(NAME) object files"
-	@$(CC) $(FLAGS) -c $(SOURCES)
+$(NAME): $(OBJ) $(LIBFT)
 	@echo "Compiling the $(NAME)"
-	@$(CC) $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+
+$(OBJ): $(SOURCES) $(HEADER)
+	@echo "Creating $(NAME) object files"
+	$(CC) $(FLAGS) -c $(SOURCES)
+
+$(LIBFT):
+	@make -s -C libft/
 
 clean:
 	@make -s -C libft clean
 	@rm -f $(OBJ)
-	@echo "ft_ls object files deleted"
+	@echo "$(NAME) object files deleted"
 
 fclean: clean
 	@make -s -C libft fclean
@@ -45,4 +51,6 @@ re: fclean all
 debug:
 	@$(LIBFT_M)
 	@$(CC) $(FLAGS) $(DEBUG_F) -c $(SOURCES)
-	@$(CC) $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+
+.PHONY: all clean fclean re debug

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:10:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 08:18:46 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 10:41:00 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ int	return_major_or_minor(int rdev, int option)
 		return (((int32_t)((rdev) & 0xffffff)));
 }
 
-/*
-**	Outputs the file size.
-*/
 void	print_file_size(struct stat *stats)
 {
 	ft_putnbr(stats->st_size);

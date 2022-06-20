@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:18:55 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:40:15 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:18:29 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 typedef struct s_file
 {
 	char			name[MAX_NAME_LEN];
+	char			link_path[PATH_MAX];
 	int				is_device;
 	int				file_ok;
 	int				len;
