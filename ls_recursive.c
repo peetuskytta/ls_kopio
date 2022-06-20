@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 14:38:19 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:24:54 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ static void	recurse_path_maker(char *path, const char *name, char *file)
 }
 
 /*
+**	Printing the
+*/
+static void	recursion_no_access(char *path)
+{
+	char	*strname;
+
+	strname = ft_strrchr(path, '/');
+	if (strname)
+		no_directory_access(++strname);
+	else
+		no_directory_access((char *)path);
+}
+
+/*
 **	Recursive function to handle new folders inside the directory
 **	stream opened.
 */
@@ -40,7 +54,7 @@ void	ls_recursive(t_data *info, const char *name, int i)
 	f_count = file_count(info, name);
 	arr = read_dir_stream(info, name, 0, f_count);
 	if (arr == NULL)
-		no_directory_access((char *)name);
+		recursion_no_access((char *)name);
 	if (f_count != 0)
 		sort_driver(arr, info, f_count);
 	while (i < f_count)
