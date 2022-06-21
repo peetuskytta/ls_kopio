@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 18:22:08 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 12:30:15 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	store_and_process_arguments(char **string, t_data *info)
 
 	info->arguments_on = 1;
 	arr = (t_file *)malloc(sizeof(t_file) * info->arg_count);
+	allocation_check(info, arr, "store_and_process_arguments\n");
 	save_args_stat(string, arr, 0);
 	sort_driver(arr, info, info->arg_count);
 	count_files_directories(arr, info, 0);

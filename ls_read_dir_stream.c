@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 17:58:36 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 12:21:26 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 	clear_and_rename_path(path, name);
 	info->dir = opendir(name);
 	if (info->dir == NULL)
-		return (NULL);
+		return (NO_ACCESS);
 	f = (t_file *)malloc(sizeof(t_file) * f_count);
+	allocation_check(info, f, "---> read_dir_stream():\n");
 	info->ent = readdir(info->dir);
 	while (info->ent)
 	{

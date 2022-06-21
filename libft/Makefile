@@ -6,11 +6,11 @@
 #    By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 13:05:41 by pskytta           #+#    #+#              #
-#    Updated: 2022/04/21 09:23:57 by pskytta          ###   ########.fr        #
+#    Updated: 2022/06/21 11:17:06 by pskytta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAG := -Wall -Wextra -Werror
+FLAG := -Wall -Wextra -Werror -fsanitize=address
 
 NAME := libft.a
 
@@ -72,7 +72,7 @@ SRC := ft_atoi.c \
 	ft_tolower.c \
 	ft_toupper.c \
 	ft_word_count.c \
-	ft_error_print.c \
+	ft_error_handler.c \
 	ft_putnbr_endl.c \
 
 OBJ := $(SRC:.c=.o)

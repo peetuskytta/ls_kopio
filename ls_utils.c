@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 13:11:39 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 12:25:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ void	count_files_directories(t_file *arr, t_data *info, int i)
 		}
 		i++;
 	}
+}
+
+void	allocation_check(t_data *info, t_file *arr, char *ft_name)
+{
+	if (arr == NULL)
+	{
+		free(info);
+		ft_error_handler(1, ft_name);
+	}
+	else
+		return ;
 }
 
 void	space_after_str(char *str)

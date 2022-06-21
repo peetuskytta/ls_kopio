@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:13:04 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 11:53:29 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	main(int argc, char **argv)
 {
 	t_data	*info;
 
-	info = (t_data *)malloc(sizeof(t_data));
+	info = (t_data *)ft_memalloc(sizeof(t_data));
 	primary_checks(argv, argc, info);
 	ls_arg_flag_driver(info, argv);
 	free(info);
+	system("leaks ft_ls");
 	return (0);
 }

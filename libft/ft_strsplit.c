@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:23:08 by pskytta           #+#    #+#             */
-/*   Updated: 2022/01/04 17:18:04 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 11:49:19 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ char	**ft_strsplit(char const *s, char c)
 	size_t	nbr;
 
 	if (!s)
-		return (NULL);
+		ft_error_handler(2, "libft/ft_strsplit: empty string\n");
 	nbr = ft_word_count(s, c);
 	result = (char **)malloc(sizeof(char *) * (nbr + 1));
 	if (!result)
-		return (NULL);
+		ft_error_handler(1, "libft/ft_strsplit <---\n");
 	ret = ft_allocate_fill(s, result, c);
 	if (ret)
 		result[nbr] = 0;

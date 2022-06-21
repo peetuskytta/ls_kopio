@@ -1,6 +1,6 @@
 CC := gcc
 DEBUG_F := -g -fsanitize=address
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror -fsanitize=address
 
 NAME := ft_ls
 SOURCES := ls_main.c \

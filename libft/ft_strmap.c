@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 10:38:02 by pskytta           #+#    #+#             */
-/*   Updated: 2021/12/15 16:50:25 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 11:49:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ char	*ft_strmap(char const *s, char (*f)(char))
 	char			*str;
 
 	if (!s)
-		return (NULL);
+		ft_error_handler(2, "libft/ft_strmap: empty string\n");
 	i = 0;
 	str = ft_strnew(ft_strlen(s));
 	if (str == NULL)
-		return (NULL);
+		ft_error_handler(1, "libft/ft_strmap <---\n");
 	while (s[i] != '\0')
 	{
 		str[i] = f(s[i]);

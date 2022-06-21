@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:09:14 by pskytta           #+#    #+#             */
-/*   Updated: 2022/04/12 13:40:47 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 11:12:05 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 
 	dup = (char *)malloc(ft_strlen(s1) + 1);
 	if (dup == NULL)
-		ft_error_print(4, "error: ft_strdup: malloc fail");
+		return (NULL);
 	ft_strcpy(dup, s1);
 	return (dup);
 }

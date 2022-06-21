@@ -23,6 +23,7 @@
 # define MAX_PATH 4096
 # define TRUE 1
 # define FALSE 0
+# define NO_ACCESS 0
 
 typedef struct s_data
 {
@@ -80,5 +81,6 @@ void	space_after_str(char *str);
 void	store_and_process_arguments(char **string, t_data *info);
 void	write_args_long(t_file arr);
 void	write_long_output(t_file *arr, int f_count, int i);
+void	allocation_check(t_data *info, t_file *arr, char *ft_name);
 
 #endif
