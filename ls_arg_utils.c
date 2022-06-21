@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 13:49:30 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:55:21 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ static void	ls_one_arg_only(t_file *arr, t_data *info)
 	}
 	free(arr);
 	free(info);
-	system("leaks ft_ls");
 	exit(0);
 }
 

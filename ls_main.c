@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:02:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 13:16:42 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:55:12 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	main(int argc, char **argv)
 	primary_checks(argv, argc, info);
 	ls_arg_flag_driver(info, argv);
 	free(info);
-	system("leaks ft_ls");
 	return (0);
 }

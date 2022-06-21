@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:06 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 14:31:13 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:55:26 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ch_error(char c)
 	write(1, &c, 1);
 	write(1, "\n", 1);
 	write(1, "usage: ./ft_ls [-larRt] [file ...]\n", 35);
-	system("leaks ft_ls");
 	exit(1);
 }
 
