@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:48 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 17:46:53 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:24:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	print_rights(struct stat *stats, t_file *arr)
 {
 	char	str[11];
 
-	ft_strclr(str);
+	ft_memset(str, '\0', 11);
 	ft_strcpy(str, "----------");
 	set_file_type(str, *stats, arr);
 	check_user(stats->st_mode, str);
 	check_group(stats->st_mode, str);
 	check_other(stats->st_mode, str);
-	ft_putstr(str);
-	ft_putchar(' ');
+	write(1, str, ft_strlen(str));
+	write(1, " ", 1);
 }

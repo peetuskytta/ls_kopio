@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:05:23 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 12:25:41 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 13:48:31 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_short(t_file *arr, int f_count)
 	i = 0;
 	while (i < f_count)
 	{
-		ft_putstr(arr[i].name);
+		write(1, arr[i].name, ft_strlen(arr[i].name));
 		if (i != f_count - 1)
 			write(1, "\n", 1);
 		i++;
@@ -79,6 +79,6 @@ void	allocation_check(t_data *info, t_file *arr, char *ft_name)
 
 void	space_after_str(char *str)
 {
-	ft_putstr(str);
-	ft_putstr(" ");
+	write(1, str, ft_strlen(str));
+	write(1, " ", 1);
 }

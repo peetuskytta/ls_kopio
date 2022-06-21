@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:06 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/18 09:39:36 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:31:13 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 void	ch_error(char c)
 {
 	ft_putstr("ls: illegal option -- ");
-	ft_putchar(c);
-	ft_putendl("");
-	ft_putendl("usage: ./ft_ls [-larRt] [file ...]");
+	write(1, &c, 1);
+	write(1, "\n", 1);
+	write(1, "usage: ./ft_ls [-larRt] [file ...]\n", 35);
+	system("leaks ft_ls");
 	exit(1);
 }
 
 void	file_no_exist(char *str)
 {
-	ft_putstr("ls: ");
-	ft_putstr(str);
-	ft_putstr(": ");
-	ft_putendl("No such file or directory");
+	write(1, "ls: ", 4);
+	write(1, str, ft_strlen(str));
+	write(1, ": ", 2);
+	write(1, "No such file or directory\n", 26);
 }
 
 void	no_directory_access(char *name)
 {
-	ft_putstr("ls: ");
-	ft_putstr(name);
-	ft_putstr(": Permission denied");
+	write(1, "ls: ", 4);
+	write(1, name, ft_strlen(name));
+	write(1, ": Permission denied", 19);
 	write(1, "\n", 1);
 }

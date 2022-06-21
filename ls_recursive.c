@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:04:18 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 10:42:58 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:42:08 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 */
 static void	recurse_path_maker(char *path, const char *name, char *file)
 {
-	ft_strclr(path);
+	ft_memset(path, '\0', MAX_PATH);
 	ft_strcat(path, name);
 	if (ft_strcmp(name, "/") != 0)
 		ft_strcat(path, "/");
 	ft_strcat(path, file);
 	write(1, "\n", 1);
-	ft_putstr(path);
+	write(1, path, ft_strlen(path));
 	write(1, ":\n", 2);
 }
 
@@ -66,7 +66,7 @@ void	ls_recursive(t_data *info, const char *name, int i)
 			{
 				recurse_path_maker(path, name, arr[i].name);
 				ls_recursive(info, path, 0);
-				ft_strclr(path);
+				ft_memset(path, '\0', MAX_PATH);
 			}
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:59:15 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 17:01:01 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:40:23 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ls_with_flags(t_data *info, const char *path)
 	strname = NULL;
 	f_count = file_count(info, path);
 	arr = read_dir_stream(info, path, 0, f_count);
-	if (arr == NULL)
+	if (arr == NO_ACCESS)
 	{
 		if (path)
 		{

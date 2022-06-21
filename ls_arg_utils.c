@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 12:30:15 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 13:49:30 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	loop_files(t_data *info, t_file *arr, int i)
 				if (info->f_long == 1 && S_ISLNK(arr[i].stats.st_mode))
 					write_args_long(arr[i]);
 				else if (info->f_long == 0 && !(S_ISLNK(arr[i].stats.st_mode)))
-					ft_putendl(arr[i].name);
+					write(1, arr[i].name, ft_strlen(arr[i].name));
 				else
-					ft_putendl(arr[i].name);
+					write(1, arr[i].name, ft_strlen(arr[i].name));
 			}
 			if ((!(S_ISDIR(arr[i].stats.st_mode)) && arr[i].file_ok == TRUE))
 				count--;
@@ -87,8 +87,8 @@ static void	loop_directories(t_data *info, t_file *arr, int i)
 		{
 			if (info->arg_count > 1)
 			{
-				ft_putstr(arr[i].name);
-				ft_putendl(":");
+				write(1, arr[i].name, ft_strlen(arr[i].name));
+				write(1, ":\n", 2);
 			}
 			info->arguments_on = 0;
 			ls_driver(info, arr[i].name);
@@ -119,10 +119,11 @@ static void	ls_one_arg_only(t_file *arr, t_data *info)
 		if (info->f_long == 1)
 			write_args_long(arr[0]);
 		else
-			ft_putendl(arr[0].name);
+			write(1, arr[0].name, ft_strlen(arr[0].name));
 	}
 	free(arr);
 	free(info);
+	system("leaks ft_ls");
 	exit(0);
 }
 

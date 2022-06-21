@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:10:58 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 10:41:00 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:13:41 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int	return_major_or_minor(int rdev, int option)
 void	print_file_size(struct stat *stats)
 {
 	ft_putnbr(stats->st_size);
-	ft_putchar(' ');
+	write(1, " ", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 12:21:26 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:42:23 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	path_maker(char *path, const char *name)
 
 static void	clear_and_rename_path(char *path, const char *name)
 {
-	ft_strclr(path);
+	ft_memset(path, '\0', ft_strlen(path));
 	ft_strcat(path, name);
 }
 

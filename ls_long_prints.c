@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:01:24 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/20 11:48:16 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/21 14:06:39 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	print_block_total(t_file *arr, int f_count)
 	}
 	if (f_count != 0)
 	{
-		ft_putstr("total ");
+		write(1, "total ", 6);
 		ft_putnbr_endl(blocks);
 	}
 }
@@ -43,11 +43,11 @@ static void	print_filename(struct stat *stats, char *filename, char *link)
 	if (S_ISLNK(stats->st_mode))
 	{
 		space_after_str(filename);
-		space_after_str("->");
-		ft_putstr(link);
+		write(1, "-> ", 3);
+		write(1, link, ft_strlen(link));
 	}
 	else
-		ft_putstr(filename);
+		write(1, filename, ft_strlen(filename));
 }
 
 /*
@@ -83,7 +83,7 @@ void	write_args_long(t_file arr)
 		print_file_size(&arr.stats);
 	print_mod_time(&arr.stats);
 	print_filename(&arr.stats, arr.name, arr.link_path);
-	ft_putchar('\n');
+	write(1, "\n", 1);
 }
 
 /*
@@ -104,7 +104,7 @@ void	write_long_output(t_file *arr, int f_count, int i)
 		print_mod_time(&arr[i].stats);
 		print_filename(&arr[i].stats, arr[i].name, arr[i].link_path);
 		if (i != f_count - 1)
-			ft_putchar('\n');
+			write(1, "\n", 1);
 		i++;
 	}
 }
