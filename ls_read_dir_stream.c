@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:03:35 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 14:42:23 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:24:44 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 static void	read_stat_and_lstat(char *name, unsigned char type, t_file *file)
 {
-	ft_memset(file->link_path, 0, 4096);
+	ft_memset(file->link_path, 0, MAX_PATH);
 	if (type & DT_LNK)
 	{
 		lstat(name, &file->stats);
@@ -67,9 +67,9 @@ int	file_count(t_data *info, const char *name)
 }
 
 /*
-**	Opens directory stream with "const char *name", allocates space for each entry
-**	in the stream and stores the file data. Returns an array of structs each
-**	representing on entry (file, directory, link, device, etc ...).
+**	Opens a directory stream and allocates space for each item in the
+**	stream and stores the file data. Returns an array of structs
+**	each representing one item (file, directory, link, device, etc ...).
 */
 t_file	*read_dir_stream(t_data *info, const char *name, int i, int f_count)
 {
