@@ -6,7 +6,7 @@
 /*   By: pskytta <pskytta@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:06:46 by pskytta           #+#    #+#             */
-/*   Updated: 2022/06/21 14:55:21 by pskytta          ###   ########.fr       */
+/*   Updated: 2022/06/22 14:58:15 by pskytta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	loop_files(t_data *info, t_file *arr, int i)
 				if (info->f_long == 1 && S_ISLNK(arr[i].stats.st_mode))
 					write_args_long(arr[i]);
 				else if (info->f_long == 0 && !(S_ISLNK(arr[i].stats.st_mode)))
-					write(1, arr[i].name, ft_strlen(arr[i].name));
+					ft_putendl(arr[i].name);
 				else
-					write(1, arr[i].name, ft_strlen(arr[i].name));
+					ft_putendl(arr[i].name);
 			}
 			if ((!(S_ISDIR(arr[i].stats.st_mode)) && arr[i].file_ok == TRUE))
 				count--;
@@ -119,7 +119,7 @@ static void	ls_one_arg_only(t_file *arr, t_data *info)
 		if (info->f_long == 1)
 			write_args_long(arr[0]);
 		else
-			write(1, arr[0].name, ft_strlen(arr[0].name));
+			ft_putendl(arr[0].name);
 	}
 	free(arr);
 	free(info);
